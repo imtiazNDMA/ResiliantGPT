@@ -1,0 +1,593 @@
+/* Add these new styles to your existing CSS */
+
+/* Chat Mode Selector */
+.chat-mode-selector {
+    padding: 10px 20px;
+    background-color: #40414f;
+    border-bottom: 1px solid #555;
+}
+
+.chat-mode-selector select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #343541;
+    color: white;
+    border: 1px solid #555;
+    outline: none;
+}
+
+/* Document Upload */
+.document-upload {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+.upload-btn {
+    background: none;
+    border: none;
+    color: #8e8ea0;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-btn:hover {
+    color: white;
+    background-color: #444654;
+}
+
+/* Adjust input container for upload button */
+.input-container {
+    padding-left: 50px; /* Make space for upload button */
+    padding-right: 90px;
+}
+
+.prompt-input {
+    padding-left: 15px !important; /* Adjust padding */
+}
+
+/* System messages */
+.message-system .message-text {
+    color: #aaa;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Keep all your existing CSS below this line */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.app-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #202123;
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sidebar-header {
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+    margin-bottom: 15px;
+}
+
+.sidebar-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.new-chat-btn {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #343541;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-chat-btn:hover {
+    background-color: #444;
+}
+
+.new-chat-btn span {
+    margin-left: 8px;
+}
+
+.chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.chat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chat-title {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.delete-chat-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0 5px;
+    margin-left: 5px;
+    visibility: hidden;
+}
+
+.chat-item:hover {
+    background-color: #343541;
+}
+
+.chat-item:hover .delete-chat-btn {
+    visibility: visible;
+}
+
+.delete-chat-btn:hover {
+    color: #fff;
+    background-color: #ff4444;
+    border-radius: 50%;
+}
+
+.active-chat {
+    background-color: #444654;
+    font-weight: bold;
+}
+
+.active-chat .delete-chat-btn {
+    visibility: visible;
+}
+
+.sidebar-footer {
+    padding: 15px 0;
+    border-top: 1px solid #444;
+    margin-top: 15px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-profile:hover {
+    background-color: #343541;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #555;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #343541;
+    color: white;
+}
+
+.message {
+    max-width: 800px;
+    margin: 0 auto 20px;
+    padding: 15px 20px;
+    line-height: 1.5;
+}
+
+.user-message {
+    background-color: #444654;
+    border-radius: 8px;
+}
+
+.bot-message {
+    background-color: #343541;
+    border-radius: 8px;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #d1d5db;
+}
+
+.message-time {
+    font-size: 0.8em;
+    color: #aaa;
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* Input Area Styles */
+.input-area {
+    padding: 20px;
+    background-color: #40414f;
+    display: flex;
+    justify-content: center;
+}
+
+.input-container {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+}
+
+.prompt-input {
+    width: 100%;
+    padding: 12px 50px 12px 15px;
+    border-radius: 8px;
+    border: none;
+    background-color: #40414f;
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    resize: none;
+    min-height: 60px;
+    max-height: 200px;
+}
+
+.prompt-submit {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background: none;
+    border: none;
+    color: #8e8ea0;
+    cursor: pointer;
+}
+
+.prompt-submit:hover {
+    color: white;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #202123;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Logo and Header Styles */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-left: 500px;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.app-title {
+    flex-grow: 1;
+    color: #2c3e50;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        height: 40px;
+    }
+    
+    .header {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .app-title {
+        margin-top: 50px;
+    }
+}
+.message-text h5 {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 15px 0 8px 0;
+    color: #ffffff;
+    border-bottom: 1px solid #555;
+    padding-bottom: 3px;
+}
+
+.message-text h6 {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 12px 0 5px 0;
+    color: #ffffff;
+}
+
+.message-text p {
+    margin: 5px 0 10px 15px;
+    line-height: 1.4;
+}
+
+.message-text ul {
+    margin: 10px 0 10px 20px;
+    list-style-type: disc;
+}
+
+.message-text li {
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+
+.message-text strong {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Audio Recording Button Styles */
+.audio-record-btn {
+    position: absolute;
+    right: 50px; /* Position to the left of the send button */
+    bottom: 10px;
+    background: none;
+    border: none;
+    color: #8e8ea0;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.audio-record-btn:hover {
+    color: white;
+}
+
+.audio-record-btn.recording {
+    color: #ff4444;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Add microphone permission button styles */
+.settings-btn {
+    background: none;
+    border: none;
+    color: #8e8ea0;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.settings-btn:hover {
+    color: white;
+}
+
+/* Add warning state */
+.audio-warning {
+    color: #ffcc00 !important;
+}
+
+#image-gen-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background-color: #444;  /* Dark background */
+  border: 2px solid #888;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+#image-gen-checkbox:checked {
+  background-color: #0f0;  /* Green when checked */
+  border-color: #0f0;
+}
+
+#image-gen-checkbox:checked::after {
+  content: '✔';
+  color: #000;
+  font-size: 12px;
+  position: absolute;
+  top: 0px;
+  left: 3px;
+}
+
+.chat-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.bot-message img {
+  width: auto;
+  height: auto;       /* Maintain aspect ratio */
+  max-height: none;   /* Remove any height restriction */
+  border-radius: 8px; /* Optional: for rounded corners */
+}
+
+/* Adding styles for the responsive */
+
+
+@media (max-width: 992px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+    .sidebar-header, .sidebar-footer {
+        width: 100%;
+        text-align: center;
+    }
+
+    .chat-history {
+        width: 100%;
+        max-height: 150px;
+        overflow-x: auto;
+        margin-top: 10px;
+    }
+
+    .user-profile {
+        justify-content: center;
+    }
+
+    .main-content {
+        width: 100%;
+        flex-grow: 1;
+    }
+
+    .chat-container {
+        padding: 10px;
+    }
+
+    .input-area {
+        padding: 10px;
+    }
+
+    .input-container {
+        max-width: 100%;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding-left: 0;
+    }
+
+    .logo {
+        margin: 10px 0;
+    }
+
+    .app-title {
+        margin-top: 10px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    .chat-mode-selector {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .prompt-input {
+        font-size: 14px;
+        padding: 10px 40px 10px 10px;
+    }
+
+    .audio-record-btn, .prompt-submit, .upload-btn, .settings-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .chat-history {
+        max-height: 100px;
+    }
+
+    .message {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .document-upload {
+        left: 5px;
+        bottom: 5px;
+    }
+
+    .audio-record-btn {
+        right: 40px;
+        bottom: 5px;
+    }
+
+    .prompt-submit {
+        right: 5px;
+        bottom: 5px;
+    }
+
+    .header {
+        padding-bottom: 10px;
+    }
+}

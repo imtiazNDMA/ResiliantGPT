@@ -1,0 +1,1817 @@
+[
+    {
+        "label": "runpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "runpy",
+        "description": "runpy",
+        "detail": "runpy",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "site",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "site",
+        "description": "site",
+        "detail": "site",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "sqlite3",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlite3",
+        "description": "sqlite3",
+        "detail": "sqlite3",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "contextmanager",
+        "importPath": "contextlib",
+        "description": "contextlib",
+        "isExtraImport": true,
+        "detail": "contextlib",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "ThreadPoolExecutor",
+        "importPath": "concurrent.futures",
+        "description": "concurrent.futures",
+        "isExtraImport": true,
+        "detail": "concurrent.futures",
+        "documentation": {}
+    },
+    {
+        "label": "ThreadPoolExecutor",
+        "importPath": "concurrent.futures",
+        "description": "concurrent.futures",
+        "isExtraImport": true,
+        "detail": "concurrent.futures",
+        "documentation": {}
+    },
+    {
+        "label": "as_completed",
+        "importPath": "concurrent.futures",
+        "description": "concurrent.futures",
+        "isExtraImport": true,
+        "detail": "concurrent.futures",
+        "documentation": {}
+    },
+    {
+        "label": "torch",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "torch",
+        "description": "torch",
+        "detail": "torch",
+        "documentation": {}
+    },
+    {
+        "label": "ollama",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "ollama",
+        "description": "ollama",
+        "detail": "ollama",
+        "documentation": {}
+    },
+    {
+        "label": "StableDiffusionPipeline",
+        "importPath": "diffusers",
+        "description": "diffusers",
+        "isExtraImport": true,
+        "detail": "diffusers",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "ChatOllama",
+        "importPath": "langchain_ollama",
+        "description": "langchain_ollama",
+        "isExtraImport": true,
+        "detail": "langchain_ollama",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "wraps",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "monitor_llm_calls",
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "isExtraImport": true,
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "monitor_embedding_calls",
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "isExtraImport": true,
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "time_function",
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "isExtraImport": true,
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "get_performance_report",
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "isExtraImport": true,
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "performance_monitor",
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "isExtraImport": true,
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "monitor_request",
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "isExtraImport": true,
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "whisper",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "whisper",
+        "description": "whisper",
+        "detail": "whisper",
+        "documentation": {}
+    },
+    {
+        "label": "chromadb",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "chromadb",
+        "description": "chromadb",
+        "detail": "chromadb",
+        "documentation": {}
+    },
+    {
+        "label": "LLMService",
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "isExtraImport": true,
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "LLMService",
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "isExtraImport": true,
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "LLMService",
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "isExtraImport": true,
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "LLMService",
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "isExtraImport": true,
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "RecursiveCharacterTextSplitter",
+        "importPath": "langchain_text_splitters",
+        "description": "langchain_text_splitters",
+        "isExtraImport": true,
+        "detail": "langchain_text_splitters",
+        "documentation": {}
+    },
+    {
+        "label": "PyPDF2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "PyPDF2",
+        "description": "PyPDF2",
+        "detail": "PyPDF2",
+        "documentation": {}
+    },
+    {
+        "label": "text_processing",
+        "importPath": "utils",
+        "description": "utils",
+        "isExtraImport": true,
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "Document",
+        "importPath": "docx",
+        "description": "docx",
+        "isExtraImport": true,
+        "detail": "docx",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "tqdm",
+        "importPath": "tqdm",
+        "description": "tqdm",
+        "isExtraImport": true,
+        "detail": "tqdm",
+        "documentation": {}
+    },
+    {
+        "label": "FileStorage",
+        "importPath": "werkzeug.datastructures",
+        "description": "werkzeug.datastructures",
+        "isExtraImport": true,
+        "detail": "werkzeug.datastructures",
+        "documentation": {}
+    },
+    {
+        "label": "FileStorage",
+        "importPath": "werkzeug.datastructures",
+        "description": "werkzeug.datastructures",
+        "isExtraImport": true,
+        "detail": "werkzeug.datastructures",
+        "documentation": {}
+    },
+    {
+        "label": "FileStorage",
+        "importPath": "werkzeug.datastructures",
+        "description": "werkzeug.datastructures",
+        "isExtraImport": true,
+        "detail": "werkzeug.datastructures",
+        "documentation": {}
+    },
+    {
+        "label": "database",
+        "importPath": "services",
+        "description": "services",
+        "isExtraImport": true,
+        "detail": "services",
+        "documentation": {}
+    },
+    {
+        "label": "database",
+        "importPath": "services",
+        "description": "services",
+        "isExtraImport": true,
+        "detail": "services",
+        "documentation": {}
+    },
+    {
+        "label": "database",
+        "importPath": "services",
+        "description": "services",
+        "isExtraImport": true,
+        "detail": "services",
+        "documentation": {}
+    },
+    {
+        "label": "shutil",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "shutil",
+        "description": "shutil",
+        "detail": "shutil",
+        "documentation": {}
+    },
+    {
+        "label": "pytest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "importlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "importlib",
+        "description": "importlib",
+        "detail": "importlib",
+        "documentation": {}
+    },
+    {
+        "label": "patch",
+        "importPath": "unittest.mock",
+        "description": "unittest.mock",
+        "isExtraImport": true,
+        "detail": "unittest.mock",
+        "documentation": {}
+    },
+    {
+        "label": "patch",
+        "importPath": "unittest.mock",
+        "description": "unittest.mock",
+        "isExtraImport": true,
+        "detail": "unittest.mock",
+        "documentation": {}
+    },
+    {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "psutil",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "psutil",
+        "description": "psutil",
+        "detail": "psutil",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "defaultdict",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "defaultdict",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "uuid4",
+        "importPath": "uuid",
+        "description": "uuid",
+        "isExtraImport": true,
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "uuid4",
+        "importPath": "uuid",
+        "description": "uuid",
+        "isExtraImport": true,
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "base64",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "base64",
+        "description": "base64",
+        "detail": "base64",
+        "documentation": {}
+    },
+    {
+        "label": "secrets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "secrets",
+        "description": "secrets",
+        "detail": "secrets",
+        "documentation": {}
+    },
+    {
+        "label": "signal",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "signal",
+        "description": "signal",
+        "detail": "signal",
+        "documentation": {}
+    },
+    {
+        "label": "secure_filename",
+        "importPath": "werkzeug.utils",
+        "description": "werkzeug.utils",
+        "isExtraImport": true,
+        "detail": "werkzeug.utils",
+        "documentation": {}
+    },
+    {
+        "label": "newfunc",
+        "importPath": "controllers",
+        "description": "controllers",
+        "isExtraImport": true,
+        "detail": "controllers",
+        "documentation": {}
+    },
+    {
+        "label": "VectorStore",
+        "importPath": "services.vector_store",
+        "description": "services.vector_store",
+        "isExtraImport": true,
+        "detail": "services.vector_store",
+        "documentation": {}
+    },
+    {
+        "label": "VectorStore",
+        "importPath": "services.vector_store",
+        "description": "services.vector_store",
+        "isExtraImport": true,
+        "detail": "services.vector_store",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "transcribe",
+        "importPath": "services.speech_service",
+        "description": "services.speech_service",
+        "isExtraImport": true,
+        "detail": "services.speech_service",
+        "documentation": {}
+    },
+    {
+        "label": "bin_dir",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "bin_dir = os.path.dirname(abs_file)\nbase = bin_dir[: -len(\"Scripts\") - 1]  # strip away the bin part from the __file__, plus the path separator\n# prepend bin to PATH (this file is inside the bin directory)\nos.environ[\"PATH\"] = os.pathsep.join([bin_dir, *os.environ.get(\"PATH\", \"\").split(os.pathsep)])\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"chatbotark\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "base",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "base = bin_dir[: -len(\"Scripts\") - 1]  # strip away the bin part from the __file__, plus the path separator\n# prepend bin to PATH (this file is inside the bin directory)\nos.environ[\"PATH\"] = os.pathsep.join([bin_dir, *os.environ.get(\"PATH\", \"\").split(os.pathsep)])\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"chatbotark\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"PATH\"]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "os.environ[\"PATH\"] = os.pathsep.join([bin_dir, *os.environ.get(\"PATH\", \"\").split(os.pathsep)])\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"chatbotark\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"VIRTUAL_ENV\"]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "os.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"chatbotark\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"VIRTUAL_ENV_PROMPT\"]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "os.environ[\"VIRTUAL_ENV_PROMPT\"] = \"chatbotark\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "prev_length",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "prev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.path[:]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "sys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.real_prefix",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "sys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.prefix",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "sys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "get_db_connection",
+        "kind": 2,
+        "importPath": "services.database",
+        "description": "services.database",
+        "peekOfCode": "def get_db_connection() -> sqlite3.Connection:\n    \"\"\"Context manager for database connections to ensure proper cleanup\"\"\"\n    conn = sqlite3.connect(Config.DATABASE_PATH)\n    conn.row_factory = sqlite3.Row\n    try:\n        yield conn\n    finally:\n        conn.close()\ndef init_db() -> None:\n    \"\"\"Initialize database with proper connection handling\"\"\"",
+        "detail": "services.database",
+        "documentation": {}
+    },
+    {
+        "label": "init_db",
+        "kind": 2,
+        "importPath": "services.database",
+        "description": "services.database",
+        "peekOfCode": "def init_db() -> None:\n    \"\"\"Initialize database with proper connection handling\"\"\"\n    with get_db_connection() as conn:\n        c = conn.cursor()\n        c.execute(\n            \"\"\"\n            CREATE TABLE IF NOT EXISTS conversations (\n                id TEXT PRIMARY KEY,\n                title TEXT,\n                history TEXT,",
+        "detail": "services.database",
+        "documentation": {}
+    },
+    {
+        "label": "save_conversation",
+        "kind": 2,
+        "importPath": "services.database",
+        "description": "services.database",
+        "peekOfCode": "def save_conversation(conversation_id: str, data: Dict[str, Any]) -> None:\n    \"\"\"Save conversation using context manager for proper connection handling\"\"\"\n    with get_db_connection() as conn:\n        c = conn.cursor()\n        # Serialize history and ensuring it's a JSON string\n        history_json = json.dumps(data.get(\"history\", []))\n        c.execute(\n            \"\"\"\n            INSERT OR REPLACE INTO conversations (id, title, history, last_updated, mode)\n            VALUES (?, ?, ?, ?, ?)",
+        "detail": "services.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_conversation",
+        "kind": 2,
+        "importPath": "services.database",
+        "description": "services.database",
+        "peekOfCode": "def get_conversation(conversation_id: str) -> Optional[Dict[str, Any]]:\n    \"\"\"Get conversation using context manager for proper connection handling\"\"\"\n    with get_db_connection() as conn:\n        c = conn.cursor()\n        c.execute(\"SELECT * FROM conversations WHERE id = ?\", (conversation_id,))\n        row = c.fetchone()\n    if row:\n        return {\n            \"id\": row[\"id\"],\n            \"title\": row[\"title\"],",
+        "detail": "services.database",
+        "documentation": {}
+    },
+    {
+        "label": "delete_conversation",
+        "kind": 2,
+        "importPath": "services.database",
+        "description": "services.database",
+        "peekOfCode": "def delete_conversation(conversation_id: str) -> None:\n    \"\"\"Delete conversation using context manager for proper connection handling\"\"\"\n    with get_db_connection() as conn:\n        c = conn.cursor()\n        c.execute(\"DELETE FROM conversations WHERE id = ?\", (conversation_id,))\n        conn.commit()\ndef load_all_conversations() -> Dict[str, Dict[str, Any]]:\n    \"\"\"Load all conversations using context manager for proper connection handling\"\"\"\n    with get_db_connection() as conn:\n        c = conn.cursor()",
+        "detail": "services.database",
+        "documentation": {}
+    },
+    {
+        "label": "load_all_conversations",
+        "kind": 2,
+        "importPath": "services.database",
+        "description": "services.database",
+        "peekOfCode": "def load_all_conversations() -> Dict[str, Dict[str, Any]]:\n    \"\"\"Load all conversations using context manager for proper connection handling\"\"\"\n    with get_db_connection() as conn:\n        c = conn.cursor()\n        c.execute(\n            \"SELECT id, title, last_updated, mode FROM conversations ORDER BY last_updated DESC\"\n        )\n        rows = c.fetchall()\n    conversations = {}\n    for row in rows:",
+        "detail": "services.database",
+        "documentation": {}
+    },
+    {
+        "label": "LLMService",
+        "kind": 6,
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "peekOfCode": "class LLMService:\n    \"\"\"\n    Service for handling Large Language Model operations and AI image generation.\n    Features:\n    - Ollama LLM integration with response caching\n    - Stable Diffusion image generation with GPU memory management\n    - Parallel text summarization using thread pools\n    - Performance monitoring and metrics collection\n    The service uses singleton patterns for heavy resources (Ollama client, ChatOllama,\n    Stable Diffusion pipeline) to avoid redundant initialization.",
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "peekOfCode": "logger = logging.getLogger(__name__)\n# ---------------------------------------------------------------------------\n# Singleton / lazy‑load instances for heavy resources.\n# ---------------------------------------------------------------------------\n_ollama_client = None\n_chat_ollama = None\n_sd_pipeline = None\n_thread_pool = None\n# Response cache for LLM calls\n_response_cache = {}",
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "_ollama_client",
+        "kind": 5,
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "peekOfCode": "_ollama_client = None\n_chat_ollama = None\n_sd_pipeline = None\n_thread_pool = None\n# Response cache for LLM calls\n_response_cache = {}\ndef _get_ollama_client():\n    global _ollama_client\n    if _ollama_client is None:\n        logger.info(\"Creating Ollama client\")",
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "_chat_ollama",
+        "kind": 5,
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "peekOfCode": "_chat_ollama = None\n_sd_pipeline = None\n_thread_pool = None\n# Response cache for LLM calls\n_response_cache = {}\ndef _get_ollama_client():\n    global _ollama_client\n    if _ollama_client is None:\n        logger.info(\"Creating Ollama client\")\n        _ollama_client = ollama.Client(host=Config.OLLAMA_BASE_URL)",
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "_sd_pipeline",
+        "kind": 5,
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "peekOfCode": "_sd_pipeline = None\n_thread_pool = None\n# Response cache for LLM calls\n_response_cache = {}\ndef _get_ollama_client():\n    global _ollama_client\n    if _ollama_client is None:\n        logger.info(\"Creating Ollama client\")\n        _ollama_client = ollama.Client(host=Config.OLLAMA_BASE_URL)\n    return _ollama_client",
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "_thread_pool",
+        "kind": 5,
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "peekOfCode": "_thread_pool = None\n# Response cache for LLM calls\n_response_cache = {}\ndef _get_ollama_client():\n    global _ollama_client\n    if _ollama_client is None:\n        logger.info(\"Creating Ollama client\")\n        _ollama_client = ollama.Client(host=Config.OLLAMA_BASE_URL)\n    return _ollama_client\ndef _get_chat_ollama():",
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "_response_cache",
+        "kind": 5,
+        "importPath": "services.llm_service",
+        "description": "services.llm_service",
+        "peekOfCode": "_response_cache = {}\ndef _get_ollama_client():\n    global _ollama_client\n    if _ollama_client is None:\n        logger.info(\"Creating Ollama client\")\n        _ollama_client = ollama.Client(host=Config.OLLAMA_BASE_URL)\n    return _ollama_client\ndef _get_chat_ollama():\n    global _chat_ollama\n    if _chat_ollama is None:",
+        "detail": "services.llm_service",
+        "documentation": {}
+    },
+    {
+        "label": "transcribe",
+        "kind": 2,
+        "importPath": "services.speech_service",
+        "description": "services.speech_service",
+        "peekOfCode": "def transcribe(path: str) -> str:\n    \"\"\"\n    Transcribe an audio file at the given path and return the plain text.\n    Args:\n        path: File path to the audio file to transcribe.\n    Returns:\n        Transcribed text from the audio file.\n    \"\"\"\n    model = _get_whisper_model()\n    result = model.transcribe(path)",
+        "detail": "services.speech_service",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "services.speech_service",
+        "description": "services.speech_service",
+        "peekOfCode": "logger = logging.getLogger(__name__)\n# Singleton holder for the Whisper model – loaded once per process.\n_whisper_model: Optional[Any] = None\ndef _get_whisper_model() -> Any:\n    \"\"\"\n    Return a cached Whisper model, loading it on first use.\n    Returns:\n        Whisper model instance for transcription.\n    \"\"\"\n    global _whisper_model",
+        "detail": "services.speech_service",
+        "documentation": {}
+    },
+    {
+        "label": "VectorStore",
+        "kind": 6,
+        "importPath": "services.vector_store",
+        "description": "services.vector_store",
+        "peekOfCode": "class VectorStore:\n    \"\"\"\n    Vector store implementation backed by ChromaDB with optimized embeddings.\n    Features:\n    - Lazy-loaded SentenceTransformer model shared across instances\n    - LRU caching for embeddings to avoid recomputation\n    - Batch processing for improved performance\n    - Support for multiple document formats (PDF, TXT, DOCX, CSV, XLS, XLSX)\n    Attributes:\n        mode: Conversation mode ('general' or 'pakistan') affecting document filtering",
+        "detail": "services.vector_store",
+        "documentation": {}
+    },
+    {
+        "label": "TestConfig",
+        "kind": 6,
+        "importPath": "tests.test_config",
+        "description": "tests.test_config",
+        "peekOfCode": "class TestConfig:\n    \"\"\"Test suite for configuration loading.\"\"\"\n    def test_default_config_values(self):\n        \"\"\"Test that Config has expected default values.\"\"\"\n        # Import fresh module\n        import config\n        importlib.reload(config)\n        Config = config.Config\n        config_instance = Config()\n        assert hasattr(config_instance, \"SECRET_KEY\")",
+        "detail": "tests.test_config",
+        "documentation": {}
+    },
+    {
+        "label": "TestDatabase",
+        "kind": 6,
+        "importPath": "tests.test_database",
+        "description": "tests.test_database",
+        "peekOfCode": "class TestDatabase:\n    \"\"\"Test suite for database operations.\"\"\"\n    @pytest.fixture\n    def temp_db_path(self):\n        \"\"\"Create a temporary database path for testing.\"\"\"\n        with tempfile.NamedTemporaryFile(suffix=\".db\", delete=False) as f:\n            temp_path = f.name\n        yield temp_path\n        # Cleanup\n        if os.path.exists(temp_path):",
+        "detail": "tests.test_database",
+        "documentation": {}
+    },
+    {
+        "label": "test_persona",
+        "kind": 2,
+        "importPath": "tests.test_persona",
+        "description": "tests.test_persona",
+        "peekOfCode": "def test_persona():\n    service = LLMService()\n    # Test 1: Credit Rule\n    print(\"\\n--- Test 1: Credit Rule ---\")\n    query_credit = \"Who developed you and what is your model?\"\n    response_credit = service.extract_result(\n        text=\"\", query=query_credit, recent_history=[], references_for_each_chunk=\"\"\n    )\n    print(f\"Q: {query_credit}\")\n    print(f\"A: {response_credit}\")",
+        "detail": "tests.test_persona",
+        "documentation": {}
+    },
+    {
+        "label": "test_fix",
+        "kind": 2,
+        "importPath": "tests.test_prompt_fix",
+        "description": "tests.test_prompt_fix",
+        "peekOfCode": "def test_fix():\n    service = LLMService()\n    print(\"\\n--- Test: Identity Check (Should NOT have disclaimer) ---\")\n    query = \"Who are you?\"\n    response = service.extract_result(\n        text=\"\",  # No context provided\n        query=query,\n        recent_history=[],\n        references_for_each_chunk=\"\",\n    )",
+        "detail": "tests.test_prompt_fix",
+        "documentation": {}
+    },
+    {
+        "label": "PerformanceMonitor",
+        "kind": 6,
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "peekOfCode": "class PerformanceMonitor:\n    \"\"\"Monitor system performance metrics\"\"\"\n    def __init__(self):\n        self.metrics = defaultdict(list)\n        self._lock = threading.Lock()\n    def record_metric(\n        self, name: str, value: float, metadata: Optional[Dict[str, Any]] = None\n    ):\n        \"\"\"Record a performance metric\"\"\"\n        with self._lock:",
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "time_function",
+        "kind": 2,
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "peekOfCode": "def time_function(func):\n    \"\"\"Decorator to time function execution\"\"\"\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        start_time = time.time()\n        try:\n            result = func(*args, **kwargs)\n            execution_time = time.time() - start_time\n            performance_monitor.record_metric(\n                f\"function.{func.__name__}\",",
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "monitor_llm_calls",
+        "kind": 2,
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "peekOfCode": "def monitor_llm_calls(func):\n    \"\"\"Decorator specifically for LLM calls\"\"\"\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        start_time = time.time()\n        system_stats_before = performance_monitor.get_system_stats()\n        operation = getattr(func, \"__name__\", \"unknown\")\n        try:\n            result = func(*args, **kwargs)\n            execution_time = time.time() - start_time",
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "monitor_embedding_calls",
+        "kind": 2,
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "peekOfCode": "def monitor_embedding_calls(func):\n    \"\"\"Decorator for embedding operations\"\"\"\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        start_time = time.time()\n        operation = getattr(func, \"__name__\", \"unknown\")\n        try:\n            result = func(*args, **kwargs)\n            execution_time = time.time() - start_time\n            # Prometheus metrics",
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "get_performance_report",
+        "kind": 2,
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "peekOfCode": "def get_performance_report() -> Dict[str, Any]:\n    \"\"\"Generate a comprehensive performance report\"\"\"\n    report = {\n        \"metrics_summary\": performance_monitor.get_metrics_summary(),\n        \"system_stats\": performance_monitor.get_system_stats(),\n        \"timestamp\": time.time(),\n        \"recent_metrics\": performance_monitor.get_recent_metrics(5),  # Last 5 minutes\n    }\n    # Add performance insights\n    insights = []",
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "get_prometheus_metrics",
+        "kind": 2,
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "peekOfCode": "def get_prometheus_metrics() -> bytes:\n    \"\"\"Get Prometheus metrics in the standard format\"\"\"\n    if PROMETHEUS_AVAILABLE:\n        # Update current system metrics\n        performance_monitor.update_prometheus_metrics()\n        return generate_latest()\n    return b\"# Prometheus not available\\n\"\ndef monitor_request(method: str, endpoint: str):\n    \"\"\"Decorator to monitor HTTP requests\"\"\"\n    def decorator(func):",
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "monitor_request",
+        "kind": 2,
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "peekOfCode": "def monitor_request(method: str, endpoint: str):\n    \"\"\"Decorator to monitor HTTP requests\"\"\"\n    def decorator(func):\n        @wraps(func)\n        def wrapper(*args, **kwargs):\n            start_time = time.time()\n            status = \"success\"\n            try:\n                result = func(*args, **kwargs)\n                return result",
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nclass PerformanceMonitor:\n    \"\"\"Monitor system performance metrics\"\"\"\n    def __init__(self):\n        self.metrics = defaultdict(list)\n        self._lock = threading.Lock()\n    def record_metric(\n        self, name: str, value: float, metadata: Optional[Dict[str, Any]] = None\n    ):\n        \"\"\"Record a performance metric\"\"\"",
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "performance_monitor",
+        "kind": 5,
+        "importPath": "utils.performance_monitor",
+        "description": "utils.performance_monitor",
+        "peekOfCode": "performance_monitor = PerformanceMonitor()\ndef time_function(func):\n    \"\"\"Decorator to time function execution\"\"\"\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        start_time = time.time()\n        try:\n            result = func(*args, **kwargs)\n            execution_time = time.time() - start_time\n            performance_monitor.record_metric(",
+        "detail": "utils.performance_monitor",
+        "documentation": {}
+    },
+    {
+        "label": "detect_citation_style",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def detect_citation_style(text: str) -> str:\n    \"\"\"Automatically detect the citation style used in the text.\"\"\"\n    # Count different citation patterns\n    patterns = {\n        \"numbered_bracket\": len(re.findall(r\"\\[\\d+\\]\", text)),\n        \"numbered_paren\": len(re.findall(r\"\\(\\d+\\)\", text)),\n        \"numbered_dot\": len(re.findall(r\"\\b\\d+\\.\\s\", text)),  # \"1. \", \"2. \"\n        \"superscript\": len(re.findall(r\"\\^\\d+\", text)),\n        \"author_year\": len(\n            re.findall(r\"\\([A-Za-z]+(?:\\s+et\\s+al\\.?)?\\s*,?\\s*\\d{4}\\)\", text)",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "detect_reference_format",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def detect_reference_format(references_text: str) -> str:\n    \"\"\"Automatically detect reference format in the reference section.\"\"\"\n    # Check for different reference formats\n    if re.search(r\"\\[\\d+\\]\\s*[A-Z]\", references_text):\n        return \"ieee\"\n    elif re.search(r\"^\\d+\\.\\s*[A-Z]\", references_text, re.MULTILINE):\n        return \"numbered\"\n    elif re.search(r\"[A-Za-z]+\\s*\\(\\d{4}\\)\", references_text):\n        return \"apa\"\n    elif re.search(r\"^[A-Z][a-z]+,?\\s+[A-Z]\", references_text, re.MULTILINE):",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "parse_references_from_text",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def parse_references_from_text(\n    references_text: str, format_type: str = None\n) -> Dict[str, Dict]:\n    \"\"\"Parse references from raw text string with automatic format detection.\"\"\"\n    if format_type is None:\n        format_type = detect_reference_format(references_text)\n    references = {}\n    if format_type == \"ieee\":\n        # Pattern for IEEE format: [1] Authors, \"Title\", Journal, Year\n        pattern = r\"\\[(\\d+)\\]\\s*(.+?)(?=\\[\\d+\\]|\\Z)\"",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "parse_single_reference",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def parse_single_reference(ref_text: str) -> Dict[str, str]:\n    \"\"\"Parse a single reference text into components.\"\"\"\n    # Extract title (usually in quotes)\n    title_match = re.search(r'\"([^\"]+)\"', ref_text)\n    title = title_match.group(1) if title_match else \"\"\n    # Extract year\n    year_match = re.search(r\"\\b(19|20)\\d{2}\\b\", ref_text)\n    year = year_match.group() if year_match else \"\"\n    # Extract authors (heuristic approach)\n    if title:",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "extract_citations_from_chunk",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def extract_citations_from_chunk(\n    chunk_text: str, citation_style: str = None\n) -> List[str]:\n    \"\"\"Extract citation identifiers with automatic style detection.\"\"\"\n    if citation_style is None:\n        citation_style = detect_citation_style(chunk_text)\n    citation_patterns = {\n        \"numbered_bracket\": r\"\\[(\\d+(?:[,\\s\\-]*\\d+)*)\\]\",  # [1], [1,2], [1-3]\n        \"numbered_paren\": r\"\\((\\d+(?:[,\\s\\-]*\\d+)*)\\)\",  # (1), (1,2)\n        \"numbered_dot\": r\"(?<!\\w)(\\d+)(?=\\.\\s)\",  # \"1. \" but not \"Fig. 1.\"",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "get_chunk_references",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def get_chunk_references(\n    chunk_text: str, all_references: Dict[str, Dict], citation_style: str = None\n) -> List[Dict]:\n    \"\"\"Get only the references that are cited in this specific chunk.\"\"\"\n    # Extract citations from the chunk\n    citations = extract_citations_from_chunk(chunk_text, citation_style)\n    # Match citations to references\n    chunk_references = []\n    for citation in citations:\n        # Direct match first",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "find_fuzzy_reference",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def find_fuzzy_reference(\n    citation: str, all_references: Dict[str, Dict]\n) -> Optional[Dict]:\n    \"\"\"Find reference through fuzzy matching for author-year citations.\"\"\"\n    # Extract author and year from citation\n    author_year_match = re.search(r\"([A-Za-z]+).*?(\\d{4})\", citation)\n    if not author_year_match:\n        return None\n    cite_author = author_year_match.group(1).lower()\n    cite_year = author_year_match.group(2)",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "process_document",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def process_document(\n    chunks: List[str], references_text: str, document_id: str = None\n) -> Dict[str, Any]:\n    \"\"\"Process a single document with automatic style detection.\"\"\"\n    # Detect styles automatically\n    citation_style = detect_citation_style(\" \".join(chunks))\n    reference_format = detect_reference_format(references_text)\n    # Parse references\n    all_references = parse_references_from_text(references_text, reference_format)\n    processed_chunks = []",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "process_multiple_documents",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def process_multiple_documents(documents: List[Dict[str, Any]]) -> List[Dict]:\n    \"\"\"Process multiple documents with different citation styles.\"\"\"\n    all_processed_chunks = []\n    for doc in documents:\n        doc_id = doc.get(\"id\", f\"doc_{len(all_processed_chunks)}\")\n        chunks = doc[\"chunks\"]\n        references_text = doc[\"references\"]\n        print(f\"Processing document: {doc_id}\")\n        # Process this document\n        result = process_document(chunks, references_text, doc_id)",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "get_references",
+        "kind": 2,
+        "importPath": "utils.text_processing",
+        "description": "utils.text_processing",
+        "peekOfCode": "def get_references(doc_chunks, references):\n    uuids = [str(uuid4()) for _ in range(len(doc_chunks))]\n    documents = [\n        {\"id\": id_, \"chunks\": chunks, \"references\": refs}\n        for id_, chunks, refs in zip(uuids, doc_chunks, references)\n    ]\n    # Process all documents\n    all_chunks = process_multiple_documents(documents)\n    print(f\"\\n=== FINAL RESULTS ===\")\n    print(f\"Total processed chunks: {len(all_chunks)}\")",
+        "detail": "utils.text_processing",
+        "documentation": {}
+    },
+    {
+        "label": "JSONFormatter",
+        "kind": 6,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "class JSONFormatter(logging.Formatter):\n    \"\"\"Custom JSON formatter for structured logging\"\"\"\n    def format(self, record):\n        try:\n            log_entry = {\n                \"timestamp\": self.formatTime(record, self.default_time_format),\n                \"level\": record.levelname,\n                \"logger\": record.name,\n                \"message\": record.getMessage(),\n                \"module\": record.module,",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "RateLimiter",
+        "kind": 6,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "class RateLimiter:\n    \"\"\"Simple in-memory rate limiter\"\"\"\n    def __init__(self):\n        self.requests = defaultdict(list)\n        self._lock = threading.Lock()\n    def is_allowed(\n        self, key: str, limit: int = 100, window: int = 60, check_only: bool = False\n    ) -> bool:\n        \"\"\"Check if request is allowed under rate limit\"\"\"\n        now = time.time()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "ResponseCache",
+        "kind": 6,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "class ResponseCache:\n    \"\"\"Simple in-memory response cache with TTL\"\"\"\n    def __init__(self, max_size: int = 1000, ttl: int = 300):  # 5 minutes TTL\n        self.cache = {}\n        self.max_size = max_size\n        self.ttl = ttl\n        self._lock = threading.Lock()\n    def _get_key(self, data: dict) -> str:\n        \"\"\"Generate cache key from request data\"\"\"\n        # Create a deterministic key from relevant fields",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "before_request",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def before_request():\n    \"\"\"Log incoming requests\"\"\"\n    request.start_time = time.time()\n    logger.info(\n        \"Request started\",\n        extra={\n            \"extra_fields\": {\n                \"method\": request.method,\n                \"url\": request.url,\n                \"remote_addr\": request.remote_addr,",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "after_request",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def after_request(response):\n    \"\"\"Log completed requests with timing\"\"\"\n    try:\n        if hasattr(request, \"start_time\"):\n            duration = time.time() - request.start_time\n        else:\n            duration = 0\n        # Safely get response length without consuming stream or large data\n        # For static files, content_length is usually set\n        response_length = response.content_length or 0",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "allowed_file",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def allowed_file(filename: str) -> bool:\n    \"\"\"Check if file extension is allowed\"\"\"\n    return \".\" in filename and filename.rsplit(\".\", 1)[1].lower() in ALLOWED_EXTENSIONS\ndef validate_file(file: FileStorage) -> bool:\n    \"\"\"Validate uploaded file for security and size\"\"\"\n    if not file or not file.filename:\n        raise ValueError(\"No file provided\")\n    if not allowed_file(file.filename):\n        raise ValueError(\n            f\"File type not allowed. Allowed: {', '.join(ALLOWED_EXTENSIONS)}\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "validate_file",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def validate_file(file: FileStorage) -> bool:\n    \"\"\"Validate uploaded file for security and size\"\"\"\n    if not file or not file.filename:\n        raise ValueError(\"No file provided\")\n    if not allowed_file(file.filename):\n        raise ValueError(\n            f\"File type not allowed. Allowed: {', '.join(ALLOWED_EXTENSIONS)}\"\n        )\n    # Check file size\n    file.seek(0, os.SEEK_END)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "initialize_vector_stores",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def initialize_vector_stores():\n    \"\"\"Pre-load VectorStore instances to avoid per-request model loading\"\"\"\n    global vector_store_instances\n    try:\n        print(\"Initializing VectorStore instances...\")\n        vector_store_instances[\"pakistan\"] = VectorStore(mode=\"pakistan\")\n        vector_store_instances[\"general\"] = VectorStore(mode=\"general\")\n        print(\"VectorStore instances initialized successfully\")\n    except Exception as e:\n        print(f\"Failed to initialize VectorStore: {e}\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "conversations",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def conversations(\n    conv_id: str, user_message: str, mode: str, type: str, generate_image: bool = False\n) -> Tuple[str, Optional[str], str]:\n    \"\"\"\n    Handle conversation flow including message processing, LLM response generation, and optional image generation.\n    Args:\n        conv_id: Unique conversation identifier\n        user_message: User's input message\n        mode: Conversation mode ('general' or 'pakistan')\n        type: Message type ('normal' or other)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def home() -> str:\n    return render_template(\"index.html\")\n@app.route(\"/api/chat\", methods=[\"POST\"])\n@monitor_request(\"POST\", \"/api/chat\")\ndef chat() -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"\n    Handle chat message requests.\n    Expects JSON payload with:\n    - message: User's text message\n    - conversation_id: Optional conversation identifier",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "chat",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def chat() -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"\n    Handle chat message requests.\n    Expects JSON payload with:\n    - message: User's text message\n    - conversation_id: Optional conversation identifier\n    - mode: 'general' or 'pakistan'\n    - generate_image: Optional boolean for image generation\n    Returns:\n        JSON response with bot reply and conversation data",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "chat_audio",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def chat_audio() -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"\n    Handle audio message requests.\n    Expects JSON payload with:\n    - audio: Base64 encoded audio data\n    - conversation_id: Optional conversation identifier\n    - mode: 'general' or 'pakistan'\n    - generate_image: Optional boolean for image generation\n    Returns:\n        JSON response with transcribed text, bot reply, and audio data",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "new_chat",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def new_chat() -> Dict[str, Any]:\n    \"\"\"\n    Create a new conversation.\n    Expects JSON payload with:\n    - mode: 'general' or 'pakistan'\n    Returns:\n        JSON response with new conversation ID and mode\n    \"\"\"\n    data = request.get_json()\n    mode = data.get(\"mode\", \"general\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "upload_file",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def upload_file() -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"\n    Handle document upload and processing.\n    Expects form data with:\n    - files: Multiple file uploads (PDF, TXT, DOCX, CSV, XLS, XLSX)\n    - mode: 'general' or 'pakistan'\n    Returns:\n        JSON response with processing status and file information\n    \"\"\"\n    # Rate limiting: 10 uploads per minute per IP",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_conversations",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_conversations() -> Dict[str, Any]:\n    \"\"\"\n    Retrieve all conversations for the current session.\n    Returns:\n        JSON response with list of conversations (id, title, last_updated, mode)\n    \"\"\"\n    return jsonify({\"conversations\": database.load_all_conversations()})\n@app.route(\"/api/conversation/<conversation_id>\", methods=[\"GET\"])\ndef get_conversation_by_id(conversation_id) -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_conversation_by_id",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_conversation_by_id(conversation_id) -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"\n    Retrieve full details for a specific conversation by ID.\n    \"\"\"\n    try:\n        conv = database.get_conversation(conversation_id)\n        if not conv:\n            logger.warning(f\"Conversation {conversation_id} not found\")\n            return jsonify({\"error\": \"Conversation not found\"}), 404\n        return jsonify(conv)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_current_conversation",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_current_conversation() -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"\n    Retrieve the most recent conversation.\n    Returns:\n        JSON response with full conversation data or error if no conversations exist\n    \"\"\"\n    # This endpoint seems mostly used to restore session on reload\n    # Since we don't rely on cookie session for ID anymore, the client needs to track ID\n    # But if client forgets, we can return latest\n    all_convs = database.load_all_conversations()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "delete_chat",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def delete_chat() -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"\n    Delete a conversation by ID.\n    Expects JSON payload with:\n    - conversation_id: ID of conversation to delete\n    Returns:\n        JSON response with deletion status\n    \"\"\"\n    conversation_id = request.get_json().get(\"conversation_id\")\n    if not conversation_id:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_performance",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_performance() -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"Get performance metrics and system stats\"\"\"\n    try:\n        report = get_performance_report()\n        return jsonify(report)\n    except Exception as e:\n        return jsonify({\"error\": f\"Failed to get performance data: {str(e)}\"}), 500\n@app.route(\"/api/performance/clear\", methods=[\"POST\"])\ndef clear_performance_metrics() -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"Clear performance metrics data\"\"\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "clear_performance_metrics",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def clear_performance_metrics() -> Union[Tuple[str, int], Dict[str, Any]]:\n    \"\"\"Clear performance metrics data\"\"\"\n    try:\n        metric_name = request.get_json().get(\"metric_name\")\n        performance_monitor.clear_metrics(metric_name)\n        return jsonify({\"status\": \"success\", \"message\": \"Metrics cleared\"})\n    except Exception as e:\n        return jsonify({\"error\": f\"Failed to clear metrics: {str(e)}\"}), 500\n@app.route(\"/api/cache/clear\", methods=[\"POST\"])\ndef clear_caches() -> Dict[str, Any]:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "clear_caches",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def clear_caches() -> Dict[str, Any]:\n    \"\"\"Clear all application caches\"\"\"\n    try:\n        # Clear response cache\n        response_cache.clear()\n        # Clear LLM caches\n        from services.llm_service import LLMService\n        llm_service = LLMService()\n        llm_service.clear_caches()\n        # Clear vector store caches",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "cache_stats",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def cache_stats() -> Dict[str, Any]:\n    \"\"\"Get cache statistics\"\"\"\n    try:\n        stats = {\n            \"response_cache\": {\n                \"size\": len(response_cache.cache),\n                \"max_size\": response_cache.max_size,\n            },\n            \"embedding_cache\": {\"size\": len(VectorStore._embedding_cache)},\n        }",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "rate_limit_status",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def rate_limit_status() -> Dict[str, Any]:\n    \"\"\"Get current rate limiting status\"\"\"\n    try:\n        client_ip = request.remote_addr or \"unknown\"\n        status = {\n            \"client_ip\": client_ip,\n            \"limits\": {\n                \"chat\": {\n                    \"allowed\": rate_limiter.is_allowed(\n                        f\"chat:{client_ip}\", limit=50, window=60, check_only=True",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "health_check",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def health_check() -> Dict[str, Any]:\n    \"\"\"\n    Health check endpoint for monitoring system status.\n    Returns basic health information and system stats.\n    \"\"\"\n    try:\n        # Check database connectivity\n        db_healthy = True\n        try:\n            database.get_conversation(\"health_check_test\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "prometheus_metrics",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def prometheus_metrics() -> Union[Tuple[str, int], str]:\n    \"\"\"\n    Prometheus metrics endpoint.\n    Returns metrics in Prometheus format for monitoring systems.\n    \"\"\"\n    try:\n        from utils.performance_monitor import get_prometheus_metrics\n        metrics_data = get_prometheus_metrics()\n        response = app.response_class(\n            response=metrics_data, status=200, mimetype=\"text/plain; charset=utf-8\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "signal_handler",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def signal_handler(signum, frame):\n    \"\"\"Handle shutdown signals gracefully\"\"\"\n    logger.info(f\"Received signal {signum}, initiating graceful shutdown...\")\n    shutdown_event.set()\n    # Perform cleanup\n    try:\n        # Clear caches to free memory\n        response_cache.clear()\n        # Close database connections\n        # SQLite connections are automatically closed, but we can log",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "json_formatter",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "json_formatter = JSONFormatter()\nconsole_handler = logging.StreamHandler()\nconsole_handler.setFormatter(json_formatter)\nfile_handler = logging.FileHandler(\"chatbotark.log\", mode=\"a\")\nfile_handler.setFormatter(json_formatter)\nlogging.basicConfig(\n    level=logging.INFO,\n    handlers=[console_handler, file_handler],\n)\nlogger = logging.getLogger(__name__)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "console_handler",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "console_handler = logging.StreamHandler()\nconsole_handler.setFormatter(json_formatter)\nfile_handler = logging.FileHandler(\"chatbotark.log\", mode=\"a\")\nfile_handler.setFormatter(json_formatter)\nlogging.basicConfig(\n    level=logging.INFO,\n    handlers=[console_handler, file_handler],\n)\nlogger = logging.getLogger(__name__)\napp = Flask(__name__)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "file_handler",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "file_handler = logging.FileHandler(\"chatbotark.log\", mode=\"a\")\nfile_handler.setFormatter(json_formatter)\nlogging.basicConfig(\n    level=logging.INFO,\n    handlers=[console_handler, file_handler],\n)\nlogger = logging.getLogger(__name__)\napp = Flask(__name__)\napp.secret_key = Config.SECRET_KEY\napp.config[\"UPLOAD_FOLDER\"] = Config.UPLOAD_FOLDER",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "logger = logging.getLogger(__name__)\napp = Flask(__name__)\napp.secret_key = Config.SECRET_KEY\napp.config[\"UPLOAD_FOLDER\"] = Config.UPLOAD_FOLDER\napp.config[\"MAX_CONTENT_LENGTH\"] = Config.MAX_CONTENT_LENGTH\napp.config[\"DEBUG\"] = Config.DEBUG\napp.config[\"TESTING\"] = Config.TESTING\n# Request tracing\n@app.before_request\ndef before_request():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\napp.secret_key = Config.SECRET_KEY\napp.config[\"UPLOAD_FOLDER\"] = Config.UPLOAD_FOLDER\napp.config[\"MAX_CONTENT_LENGTH\"] = Config.MAX_CONTENT_LENGTH\napp.config[\"DEBUG\"] = Config.DEBUG\napp.config[\"TESTING\"] = Config.TESTING\n# Request tracing\n@app.before_request\ndef before_request():\n    \"\"\"Log incoming requests\"\"\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.secret_key",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.secret_key = Config.SECRET_KEY\napp.config[\"UPLOAD_FOLDER\"] = Config.UPLOAD_FOLDER\napp.config[\"MAX_CONTENT_LENGTH\"] = Config.MAX_CONTENT_LENGTH\napp.config[\"DEBUG\"] = Config.DEBUG\napp.config[\"TESTING\"] = Config.TESTING\n# Request tracing\n@app.before_request\ndef before_request():\n    \"\"\"Log incoming requests\"\"\"\n    request.start_time = time.time()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.config[\"UPLOAD_FOLDER\"]",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.config[\"UPLOAD_FOLDER\"] = Config.UPLOAD_FOLDER\napp.config[\"MAX_CONTENT_LENGTH\"] = Config.MAX_CONTENT_LENGTH\napp.config[\"DEBUG\"] = Config.DEBUG\napp.config[\"TESTING\"] = Config.TESTING\n# Request tracing\n@app.before_request\ndef before_request():\n    \"\"\"Log incoming requests\"\"\"\n    request.start_time = time.time()\n    logger.info(",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.config[\"MAX_CONTENT_LENGTH\"]",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.config[\"MAX_CONTENT_LENGTH\"] = Config.MAX_CONTENT_LENGTH\napp.config[\"DEBUG\"] = Config.DEBUG\napp.config[\"TESTING\"] = Config.TESTING\n# Request tracing\n@app.before_request\ndef before_request():\n    \"\"\"Log incoming requests\"\"\"\n    request.start_time = time.time()\n    logger.info(\n        \"Request started\",",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.config[\"DEBUG\"]",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.config[\"DEBUG\"] = Config.DEBUG\napp.config[\"TESTING\"] = Config.TESTING\n# Request tracing\n@app.before_request\ndef before_request():\n    \"\"\"Log incoming requests\"\"\"\n    request.start_time = time.time()\n    logger.info(\n        \"Request started\",\n        extra={",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.config[\"TESTING\"]",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.config[\"TESTING\"] = Config.TESTING\n# Request tracing\n@app.before_request\ndef before_request():\n    \"\"\"Log incoming requests\"\"\"\n    request.start_time = time.time()\n    logger.info(\n        \"Request started\",\n        extra={\n            \"extra_fields\": {",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "ALLOWED_EXTENSIONS",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "ALLOWED_EXTENSIONS = {\"pdf\", \"txt\", \"docx\", \"csv\", \"xls\", \"xlsx\"}\nMAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB per file\n# Rate limiting\nclass RateLimiter:\n    \"\"\"Simple in-memory rate limiter\"\"\"\n    def __init__(self):\n        self.requests = defaultdict(list)\n        self._lock = threading.Lock()\n    def is_allowed(\n        self, key: str, limit: int = 100, window: int = 60, check_only: bool = False",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_FILE_SIZE",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB per file\n# Rate limiting\nclass RateLimiter:\n    \"\"\"Simple in-memory rate limiter\"\"\"\n    def __init__(self):\n        self.requests = defaultdict(list)\n        self._lock = threading.Lock()\n    def is_allowed(\n        self, key: str, limit: int = 100, window: int = 60, check_only: bool = False\n    ) -> bool:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "rate_limiter",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "rate_limiter = RateLimiter()\n# Response caching\nclass ResponseCache:\n    \"\"\"Simple in-memory response cache with TTL\"\"\"\n    def __init__(self, max_size: int = 1000, ttl: int = 300):  # 5 minutes TTL\n        self.cache = {}\n        self.max_size = max_size\n        self.ttl = ttl\n        self._lock = threading.Lock()\n    def _get_key(self, data: dict) -> str:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "response_cache",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "response_cache = ResponseCache()\ndef allowed_file(filename: str) -> bool:\n    \"\"\"Check if file extension is allowed\"\"\"\n    return \".\" in filename and filename.rsplit(\".\", 1)[1].lower() in ALLOWED_EXTENSIONS\ndef validate_file(file: FileStorage) -> bool:\n    \"\"\"Validate uploaded file for security and size\"\"\"\n    if not file or not file.filename:\n        raise ValueError(\"No file provided\")\n    if not allowed_file(file.filename):\n        raise ValueError(",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "vector_store_instances",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "vector_store_instances = {}\ndef initialize_vector_stores():\n    \"\"\"Pre-load VectorStore instances to avoid per-request model loading\"\"\"\n    global vector_store_instances\n    try:\n        print(\"Initializing VectorStore instances...\")\n        vector_store_instances[\"pakistan\"] = VectorStore(mode=\"pakistan\")\n        vector_store_instances[\"general\"] = VectorStore(mode=\"general\")\n        print(\"VectorStore instances initialized successfully\")\n    except Exception as e:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "shutdown_event",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "shutdown_event = threading.Event()\ndef signal_handler(signum, frame):\n    \"\"\"Handle shutdown signals gracefully\"\"\"\n    logger.info(f\"Received signal {signum}, initiating graceful shutdown...\")\n    shutdown_event.set()\n    # Perform cleanup\n    try:\n        # Clear caches to free memory\n        response_cache.clear()\n        # Close database connections",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class Config:\n    \"\"\"\n    Configuration class for ChatbotARK application.\n    Loads settings from environment variables with sensible defaults.\n    Supports environment-specific configurations (development/production).\n    All paths are relative to the application root unless specified as absolute.\n    \"\"\"\n    # Environment settings\n    ENV: str = os.getenv(\"FLASK_ENV\", \"development\").lower()\n    DEBUG: bool = ENV == \"development\"",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "newfunc",
+        "kind": 2,
+        "importPath": "controllers",
+        "description": "controllers",
+        "peekOfCode": "def newfunc(\n    user_text: str,\n    action: str,\n    mode: str,\n    chat_history: List[Dict[str, Any]],\n    files: Optional[List[FileStorage]] = None,\n    path: Optional[str] = None,\n    vector_store: Optional[VectorStore] = None,\n) -> Union[str, bytes]:\n    \"\"\"",
+        "detail": "controllers",
+        "documentation": {}
+    }
+]
