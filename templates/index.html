@@ -1,104 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
+    <title>ChatbotARK | Robotic AI Command Center</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='animations.css') }}">
 </head>
+
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
+    <div class="bg-grid"></div>
+    <div class="scanline-effect"></div>
+
+    <div class="app-layout">
+        <!-- Sidebar: Control Wing -->
+        <aside class="sidebar glass-panel">
             <div class="sidebar-header">
-                <h2>Chat History</h2>
+                <h2>System Archives</h2>
             </div>
+
             <button class="new-chat-btn" id="new-chat-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="square">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
-                <span>New chat</span>
+                <span>New Archives</span>
             </button>
+
             <div class="chat-history" id="chat-history-sidebar">
-                <!-- Dynamic content will be added here -->
+                <!-- Dynamic archives will appear here -->
             </div>
+
             <div class="sidebar-footer">
-                <div class="user-profile">
-                    <div class="user-avatar">N</div>
-                    <span>NDMA</span>
+                <div class="user-profile robotic-panel">
+                    <div class="user-avatar ai-pulse">CM</div>
+                    <span class="sidebar-title">COMMANDER</span>
                 </div>
             </div>
-        </div>
-        
-        <!-- Main Content -->
-        <div class="main-content">
-            <div class="header">
-                <img src="{{ url_for('static', filename='logo.png') }}" alt="Organization Logo" class="logo">
-                <h1 class="app-title">Academic Research Knowledge</h1>
-            </div>
+        </aside>
 
-            <!-- Chat Mode Selector -->
-            <div class="chat-mode-selector">
-                <select id="chat-mode">
-                    <option value="pakistan">Pakistan</option>
-                    <option value="internet">International</option>
-                    <option value="Hybrid">Hybrid (Pakistan+International)</option>
-                </select>
+        <!-- Header: System Monitor -->
+        <header class="header neon-border">
+            <div class="header-content">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="ARK Logo" class="logo floating">
+                <h1 class="app-title neon-text">ARK COMMAND CENTER</h1>
             </div>
+            <div class="ai-status">
+                <span class="status-pulse"></span>
+                <span class="status-text">CORE ONLINE</span>
+            </div>
+        </header>
 
-            <!-- Chat Output Area -->
-            <div class="chat-container" id="chat-output">
-                <!-- Messages will appear here -->
+        <!-- Main Arena: The Hub -->
+        <main class="chat-main-arena">
+            <div class="chat-output-wrapper robotic-panel">
+                <div class="chat-container" id="chat-output">
+                    <!-- Data packets will appear here -->
+                </div>
             </div>
-            
-            <!-- Input Area -->
-            <div class="input-area">
-                <div class="input-container">
-                    <div class="document-upload">
-                        <input type="file" id="file-upload" multiple accept=".txt,.pdf,.doc,.docx" style="display: none;">
-                        <button class="upload-btn" id="upload-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </button>
-                        
-                    </div>
-                    <textarea class="prompt-input" placeholder="Type your message here..." id="user-input"></textarea>
-                    <button class="prompt-submit" id="send-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        </main>
+
+        <!-- Command Hub: Input Region -->
+        <footer class="input-area">
+            <div class="input-container robotic-panel">
+                <div class="document-upload">
+                    <input type="file" id="file-upload" multiple accept=".txt,.pdf,.doc,.docx" style="display: none;">
+                    <button class="action-btn" id="upload-btn" title="Ingest Documents">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <textarea class="prompt-input" placeholder="PROVIDE COMMANDS..." id="user-input"></textarea>
+
+                <div class="input-actions">
+                    <label id="image-gen-label" title="Toggle Visual Generation">
+                        <input type="checkbox" id="image-gen-checkbox">
+                    </label>
+
+                    <button class="action-btn" id="audio-record-btn" title="Voice Command">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        </svg>
+                    </button>
+
+                    <button class="action-btn" id="send-button" title="Transmit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
                             <line x1="22" y1="2" x2="11" y2="13"></line>
                             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                         </svg>
                     </button>
-                    <label id="image-gen-label">
-                        <input type="checkbox" id="image-gen-checkbox" title = "Generate Image">
-                    </label>
-                    <button class="audio-record-btn" id="audio-record-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
-                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                            <line x1="12" y1="19" x2="12" y2="23"></line>
-                            <line x1="8" y1="23" x2="16" y2="23"></line>
-                        </svg>
-                    </button>
-                    <!-- Request Mic Permission Button -->
-                    <button id="request-mic-btn" class="settings-btn" title="Enable Microphone">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
-                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                            <line x1="12" y1="19" x2="12" y2="23"></line>
-                            <line x1="8" y1="23" x2="16" y2="23"></line>
-                        </svg>
-                    </button>
                 </div>
             </div>
-        </div>
+        </footer>
     </div>
 
-<script src = "static/script.js"> </script>
+    <script src="static/script.js"></script>
 </body>
+
 </html>

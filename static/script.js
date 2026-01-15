@@ -10,14 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatMode = document.getElementById('chat-mode');
 
     let currentConversationId = null;
-    let currentMode = 'pakistan';
+    let currentMode = 'Hybrid'; // Default to hybrid for consistency behind the scenes
 
     initializeChat();
 
     sendButton.addEventListener('click', sendMessage);
     newChatBtn.addEventListener('click', createNewChat);
     uploadBtn.addEventListener('click', () => fileUpload.click());
-    chatMode.addEventListener('change', updateChatMode);
     fileUpload.addEventListener('change', handleFileUpload);
 
     userInput.addEventListener('keydown', function (e) {
@@ -27,10 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    function updateChatMode() {
-        currentMode = chatMode.value;
-        addMessage('system', `Mode changed to: ${chatMode.options[chatMode.selectedIndex].text}`);
-    }
+
 
     async function handleFileUpload(event) {
         const files = event.target.files;
@@ -76,15 +72,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add message to UI
     function addMessage(sender, text, timestamp = null) {
         const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}-message`;
+        messageDiv.className = `message ${sender}-message robotic-panel`;
+        messageDiv.setAttribute('data-id', Math.random().toString(36).substr(2, 9).toUpperCase());
 
         const senderDiv = document.createElement('div');
         senderDiv.className = 'message-sender';
-        senderDiv.textContent = sender === 'user' ? 'You' : (sender === 'system' ? 'System' : 'Chatbot');
+        senderDiv.textContent = sender === 'user' ? '// COMMANDER_INPUT' : (sender === 'system' ? '// SYSTEM_LOG' : '// ARK_RESPONSE');
 
         const textDiv = document.createElement('div');
         textDiv.className = 'message-text';
-        textDiv.innerHTML = formatBotResponse(text);
 
         messageDiv.appendChild(senderDiv);
         messageDiv.appendChild(textDiv);
@@ -98,6 +94,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
         chatOutput.appendChild(messageDiv);
         chatOutput.scrollTop = chatOutput.scrollHeight;
+
+        if (sender === 'bot') {
+            typeWriter(textDiv, formatBotResponse(text));
+        } else {
+            textDiv.innerHTML = formatBotResponse(text);
+        }
+    }
+
+    // Typewriter effect
+    function typeWriter(element, html, speed = 20) {
+        let i = 0;
+        element.innerHTML = "";
+        element.classList.add('typing-cursor');
+
+        // Since it's HTML, we need to handle tags
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        const text = tempDiv.innerText; // Basic version: type text only for now to avoid breaking HTML tags mid-way
+        // Rich version: type HTML safely
+
+        let currentText = "";
+        const interval = setInterval(() => {
+            if (i < html.length) {
+                // To properly handle HTML, we should really use a library or a complex regex
+                // Simple workaround: show it chunk by chunk or full if it's very complex
+                if (html.length > 500) {
+                    element.innerHTML = html;
+                    clearInterval(interval);
+                    element.classList.remove('typing-cursor');
+                    return;
+                }
+
+                element.innerHTML = html.substring(0, i + 1);
+                i++;
+                chatOutput.scrollTop = chatOutput.scrollHeight;
+            } else {
+                clearInterval(interval);
+                element.classList.remove('typing-cursor');
+            }
+        }, 10);
     }
 
 
@@ -403,7 +439,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             mediaRecorder.start();
             recording = true;
-            audioRecordBtn.classList.add("recording");
+            audioRecordBtn.classList.add("recording", "neon-border");
+            document.querySelector('.status-text').textContent = "LISTENING...";
             console.log("Recording started");
         } catch (err) {
             alert("Could not start recording: " + err.message);
@@ -415,7 +452,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (mediaRecorder && recording) {
             mediaRecorder.stop();
             recording = false;
-            audioRecordBtn.classList.remove("recording");
+            audioRecordBtn.classList.remove("recording", "neon-border");
+            document.querySelector('.status-text').textContent = "PROCESSING...";
             console.log("Recording stopped");
         }
     }
