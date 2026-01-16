@@ -393,26 +393,16 @@ def chat() -> Union[Tuple[str, int], Dict[str, Any]]:
         mode = data.get("mode", "general")
         generate_image = data.get("generate_image", False)
 
-        # Input validation
-        if not user_message or not isinstance(user_message, str):
-            logger.warning("Invalid or missing message in chat request")
-            return jsonify({"error": "Valid message required"}), 400
-
-        if len(user_message.strip()) == 0:
-            logger.warning("Empty message received in chat request")
-            return jsonify({"error": "Message cannot be empty"}), 400
-
         if len(user_message) > 10000:  # Reasonable message length limit
             logger.warning(f"Message too long: {len(user_message)} characters")
             return jsonify({"error": "Message too long (max 10000 characters)"}), 400
 
-        # Validate mode
-        if mode not in ["general", "pakistan"]:
-            logger.warning(f"Invalid mode received: {mode}")
-            return (
-                jsonify({"error": "Invalid mode. Must be 'general' or 'pakistan'"}),
-                400,
-            )
+        # Validate and normalize mode
+        mode = mode.lower() if mode else "general"
+        if "pakistan" in mode:
+            mode = "pakistan"
+        else:
+            mode = "general"
 
         logger.info(
             f"Processing chat request: mode={mode}, generate_image={generate_image}, message_length={len(user_message)}"
@@ -498,13 +488,12 @@ def chat_audio() -> Union[Tuple[str, int], Dict[str, Any]]:
     mode = data.get("mode", "general")
     generate_image = data.get("generate_image", False)
 
-    # Input validation
-    if not audio_base64 or not isinstance(audio_base64, str):
-        return jsonify({"error": "Valid audio data required"}), 400
-
-    # Validate mode
-    if mode not in ["general", "pakistan"]:
-        return jsonify({"error": "Invalid mode. Must be 'general' or 'pakistan'"}), 400
+    # Validate and normalize mode
+    mode = mode.lower() if mode else "general"
+    if "pakistan" in mode:
+        mode = "pakistan"
+    else:
+        mode = "general"
 
     try:
         # Validate base64 format

@@ -7,10 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatHistorySidebar = document.getElementById('chat-history-sidebar');
     const uploadBtn = document.getElementById('upload-btn');
     const fileUpload = document.getElementById('file-upload');
-    const chatMode = document.getElementById('chat-mode');
 
     let currentConversationId = null;
-    let currentMode = 'Hybrid'; // Default to hybrid for consistency behind the scenes
+    let currentMode = 'pakistan'; // Default to pakistan for backend compatibility
 
     initializeChat();
 
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < files.length; i++) {
             formData.append('files', files[i]);
         }
-        formData.append('mode', document.getElementById('chat-mode').value);
+        formData.append('mode', currentMode);
 
         try {
             addMessage('system', `Uploading ${files.length} file(s)...`);
@@ -253,7 +252,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             currentConversationId = conversationId;
             currentMode = conversation.mode || 'pakistan';
-            chatMode.value = currentMode;
 
             chatOutput.innerHTML = '';
 
@@ -346,7 +344,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const data = await response.json();
                 currentConversationId = data.conversation_id;
                 currentMode = data.conversation.mode || 'pakistan';
-                chatMode.value = currentMode;
                 await loadConversation(currentConversationId);
             } else {
                 await createNewChat();
@@ -358,10 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Microphone / audio recording logic
-
     const audioRecordBtn = document.getElementById("audio-record-btn");
-    const requestMicBtn = document.getElementById("request-mic-btn");
-
     let mediaRecorder;
     let audioChunks = [];
     let recording = false;
@@ -382,22 +376,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
-
-    // Request mic permission on button click
-    requestMicBtn.addEventListener("click", async () => {
-        const granted = await checkMicrophonePermission();
-        if (granted) {
-            alert("Microphone permission already granted.");
-
-        } else {
-            try {
-                await navigator.mediaDevices.getUserMedia({ audio: true });
-                alert("Microphone permission granted.");
-            } catch {
-                alert("Microphone permission denied.");
-            }
-        }
-    });
 
     // Start or stop recording on button click
     audioRecordBtn.addEventListener("click", async () => {
