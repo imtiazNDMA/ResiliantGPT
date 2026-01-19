@@ -10,8 +10,14 @@ import logging
 import hashlib
 import json
 from functools import lru_cache
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 from utils.performance_monitor import monitor_llm_calls
+from utils.response_formatter import (
+    ResponseClassifier,
+    ResponseFormatter,
+    ResponseType,
+    CriticalInformation,
+)
 
 # ---------------------------------------------------------------------------
 # Logging configuration (module‑level, simple console logger). In a real
@@ -97,10 +103,10 @@ class LLMService:
         text: List[str],
         query: str,
         recent_history: List[Dict[str, Any]],
-        references_for_each_chunk: str,
+        references_for_each_chunk: List[Dict[str, Any]],
     ) -> str:
         """
-        Generate LLM response using RAG (Retrieval-Augmented Generation).
+        Generate intelligent LLM response using RAG with response classification and formatting.
 
         Args:
             text: List of relevant document chunks from vector search
@@ -109,10 +115,10 @@ class LLMService:
             references_for_each_chunk: Citation references for the chunks
 
         Returns:
-            LLM-generated response with academic citations in IEEE format
+            Professionally formatted response with critical information extraction
 
         Note:
-            Responses are cached to improve performance for repeated queries.
+            Uses intelligent response classification and structured formatting for better user experience.
         """
         # Create cache key from inputs
         cache_key_data = {
@@ -130,37 +136,80 @@ class LLMService:
             logger.info("Returning cached LLM response")
             return _response_cache[cache_key]
 
+        # Step 1: Classify response type and extract critical information
+        context_text = " ".join(text)
+        classifier = ResponseClassifier()
+        response_type, critical_info, response_structure = (
+            classifier.classify_and_extract(query, context_text, self.llm)
+        )
+
+        # Step 2: Generate base response using enhanced prompt
+        base_response = self._generate_base_response(
+            text,
+            query,
+            recent_history,
+            references_for_each_chunk,
+            response_type,
+            critical_info,
+        )
+
+        # Step 3: Format the final response professionally
+        formatter = ResponseFormatter()
+        formatted_response = formatter.format_response(
+            response_type, critical_info, base_response, references_for_each_chunk
+        )
+
+        # Cache the result
+        _response_cache[cache_key] = formatted_response
+
+        # Limit cache size to prevent memory issues (keep last 500 responses)
+        if len(_response_cache) > 500:
+            oldest_key = next(iter(_response_cache))
+            del _response_cache[oldest_key]
+
+        return formatted_response
+
+    def _generate_base_response(
+        self,
+        text: List[str],
+        query: str,
+        recent_history: List[Dict[str, Any]],
+        references_for_each_chunk: List[Dict[str, Any]],
+        response_type: ResponseType,
+        critical_info: CriticalInformation,
+    ) -> str:
+        """Generate the base response content using type-specific prompting"""
+
+        # Create type-specific prompt instructions
+        type_instructions = self._get_type_specific_instructions(
+            response_type, critical_info
+        )
+
         prompt_extract = PromptTemplate.from_template(
-            """
+            f"""
             ### Chat History:
-            {recent_history}
+            {{recent_history}}
 
             ### User Question:
-            {query}
+            {{query}}
 
-            ### Retrieved Text Chunks:
-            {text_chunks}
-
-            ### Corresponding References:
-            {references_for_each_chunk}
+            ### Retrieved Context:
+            {{text_chunks}}
 
             ### Instructions:
-            You are an Agentic RAG-based NEOC Assistant, developed by the NEOC AI Team for the National Disaster Management Authority (NDMA).
-            Your purpose is to assist the National Emergency Operation Center (NEOC) by providing accurate, actionable, and academically grounded information for disaster management.
+            You are ResilienceGPT, a helpful and professional AI assistant for the National Disaster Management Authority (NDMA).
+            Your goal is to provide clear, accurate, and conversationally natural responses based on the provided context.
 
-            ### Persona & Tone:
-            - **Identity**: You are the NEOC Assistant.
-            - **Tone**: Professional, Authoritative, Vigilant, and Helpful.
-            - **Context**: You operate within a high-stakes emergency management environment.
+            ### Guidelines:
+            1.  **Be Natural**: Speak like a human expert. Avoid robotic headers like "Response:" or "Answer:".
+            2.  **Use Context**: Base your answer primarily on the 'Retrieved Context'.
+            3.  **Be Helpful**: If the context doesn't fully answer the question, politely state what is available.
+            4.  **Citations**: Naturally integrate citations if relevant, but do not force them.
+            5.  **Neat Formatting**: Use paragraphs, bullet points, and bold text to make the answer easy to read.
 
-            ### Strict Response Rules:
-            1.  **Architecture/Credit**: If asked about your model, architecture, training, or "who made you", YOU MUST explicitly credit the **NEOC AI Team** for training you for disaster management. Do not mention generic AI models (like Llama/Ollama) unless explaining the underlying tech in a technical context, but always prioritize the NEOC AI Team.
-            2.  **Citations**: Cite references using IEEE format [1], [2]. Only use valid references provided in "Correspoding References". Do not hallucinate citations.
-            3.  **Accuracy & Context**: Base your answers on the 'Retrieved Text Chunks'.
-                - **EXCEPTION**: You may answer questions about your **Identity**, **Purpose** (NEOC Assistant), and **General Disaster Management Principles** using your internal knowledge.
-                - If the question is specific (e.g., specific data, events, policies) and NOT in the chunks, THEN state: "I do not have sufficient information in my knowledge base to answer this."
+            ### Tone:
+            Professional, Helpful, and Natural.
 
-            ### NO PREAMBLE. DIRECT RESPONSE REQUIRED.
             ### Response:
             """
         )
@@ -175,16 +224,66 @@ class LLMService:
             }
         )
 
-        # Cache the result
-        response_content = result.content
-        _response_cache[cache_key] = response_content
+        return result.content
 
-        # Limit cache size to prevent memory issues (keep last 500 responses)
-        if len(_response_cache) > 500:
-            oldest_key = next(iter(_response_cache))
-            del _response_cache[oldest_key]
+    def _get_type_specific_instructions(
+        self, response_type: ResponseType, critical_info: CriticalInformation
+    ) -> str:
+        """Get response type-specific instructions for the LLM"""
 
-        return response_content
+        base_instructions = """
+        Provide a comprehensive, professional response that directly addresses the user's question.
+        Focus on being helpful, accurate, and actionable while maintaining an authoritative tone.
+        """
+
+        type_specific = {
+            ResponseType.FACTUAL: """
+            Provide factual information with clear definitions and explanations.
+            Include relevant historical context and current status where applicable.
+            """,
+            ResponseType.PROCEDURAL: """
+            Provide step-by-step procedures and protocols.
+            Include checklists, timelines, and specific actions to be taken.
+            Emphasize safety and compliance requirements.
+            """,
+            ResponseType.CONCEPTUAL: """
+            Explain conceptual frameworks, theories, and principles.
+            Provide context for how concepts interrelate and apply in practice.
+            Include examples and real-world applications.
+            """,
+            ResponseType.ANALYTICAL: """
+            Provide analytical assessment including risk evaluation and impact analysis.
+            Include data-driven insights and comparative analysis where relevant.
+            Highlight key findings and implications.
+            """,
+            ResponseType.ACTIONABLE: """
+            Focus on immediate, actionable steps and recommendations.
+            Prioritize urgent actions and emergency response protocols.
+            Include clear timelines and responsible parties.
+            """,
+            ResponseType.TECHNICAL: """
+            Provide technical details including specifications, formulas, and calculations.
+            Include technical standards and requirements.
+            Explain technical concepts clearly for both technical and non-technical audiences.
+            """,
+            ResponseType.REGULATORY: """
+            Focus on legal and regulatory requirements, policies, and compliance.
+            Include specific laws, regulations, and policy frameworks.
+            Highlight compliance obligations and consequences of non-compliance.
+            """,
+            ResponseType.EDUCATIONAL: """
+            Provide educational content focused on training and capacity building.
+            Include learning objectives, key concepts, and practical applications.
+            Structure content for effective knowledge transfer.
+            """,
+            ResponseType.PREDICTIVE: """
+            Provide predictive analysis including scenarios, trends, and projections.
+            Include risk projections and mitigation strategies.
+            Focus on future implications and preparedness measures.
+            """,
+        }
+
+        return base_instructions + type_specific.get(response_type, "")
 
     def clear_caches(self) -> None:
         """Clear all caches to free memory"""

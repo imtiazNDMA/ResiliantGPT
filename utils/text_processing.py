@@ -209,20 +209,34 @@ def get_chunk_references(
     for citation in citations:
         # Direct match first
         if citation in all_references:
-            chunk_references.append(
-                {
-                    "citation_id": citation,
-                    "title": all_references[citation]["title"],
-                    "authors": all_references[citation]["authors"],
-                    "year": all_references[citation]["year"],
-                    "raw_reference": all_references[citation]["raw_text"],
-                }
-            )
+            ref_data = all_references[citation]
+            # Validate that the reference has meaningful content
+            title = ref_data.get("title", "").strip()
+            authors = ref_data.get("authors", "").strip()
+            raw_text = ref_data.get("raw_text", "").strip()
+
+            # Only include if it has substantial content
+            if title or authors or (raw_text and len(raw_text) > 10):
+                chunk_references.append(
+                    {
+                        "citation_id": citation,
+                        "title": title,
+                        "authors": authors,
+                        "year": ref_data.get("year", "").strip(),
+                        "raw_reference": raw_text,
+                    }
+                )
         else:
             # Try fuzzy matching for author-year citations
             fuzzy_match = find_fuzzy_reference(citation, all_references)
             if fuzzy_match:
-                chunk_references.append(fuzzy_match)
+                # Validate fuzzy match has content too
+                title = fuzzy_match.get("title", "").strip()
+                authors = fuzzy_match.get("authors", "").strip()
+                raw_reference = fuzzy_match.get("raw_reference", "").strip()
+
+                if title or authors or (raw_reference and len(raw_reference) > 10):
+                    chunk_references.append(fuzzy_match)
 
     return chunk_references
 
@@ -274,7 +288,7 @@ def process_document(
     processed_chunks = []
 
     for i, chunk_text in enumerate(chunks):
-        chunk_id = f"{document_id}_chunk_{i+1}" if document_id else f"chunk_{i+1}"
+        chunk_id = f"{document_id}_chunk_{i + 1}" if document_id else f"chunk_{i + 1}"
 
         # Get references for this chunk
         chunk_references = get_chunk_references(

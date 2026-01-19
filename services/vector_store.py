@@ -304,9 +304,9 @@ class VectorStore:
         results = self.collection.query(
             query_embeddings=[query_embedding], n_results=10
         )
-        self.retrieved_docs = results["documents"]
-        metadatas = results["metadatas"]
-        full_context = results["documents"]
+        self.retrieved_docs = results["documents"][0] if results["documents"] else []
+        metadatas = results["metadatas"][0] if results["metadatas"] else []
+        full_context = results["documents"][0] if results["documents"] else []
         self.context = full_context
         return self.context, metadatas
 
@@ -315,13 +315,64 @@ class VectorStore:
         context1: List[str],
         query: str,
         recent_history: List[Dict[str, Any]],
-        ref: str,
+        ref: List[Dict[str, Any]],
     ) -> str:
-        # Remove extra spaces around keyword arguments and wrap long line
+        # Extract and format references for the LLM service
+        formatted_references = self._format_references_for_llm(ref)
+
         extract_result = LLMService().extract_result(
             text=context1,
             query=query,
             recent_history=recent_history,
-            references_for_each_chunk=ref,
+            references_for_each_chunk=formatted_references,
         )
         return extract_result
+
+    def _format_references_for_llm(
+        self, metadatas: List[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """Format metadata references for the LLM service with validation"""
+        formatted_refs = []
+
+        for metadata in metadatas:
+            cited_refs = metadata.get("cited_references", [])
+            for ref in cited_refs:
+                # Validate that the reference has actual content
+                citation_id = ref.get("citation_id", "").strip()
+                title = ref.get("title", "").strip()
+                authors = ref.get("authors", "").strip()
+                raw_reference = ref.get("raw_reference", "").strip()
+
+                # Only include references that have meaningful content
+                # Must have citation_id OR (title/authors AND raw_reference)
+                has_citation_id = bool(citation_id)
+                has_meaningful_content = bool(title or authors) and bool(
+                    raw_reference and len(raw_reference) > 10
+                )
+
+                if has_citation_id or has_meaningful_content:
+                    formatted_refs.append(
+                        {
+                            "citation_id": citation_id,
+                            "title": title,
+                            "authors": authors,
+                            "year": ref.get("year", "").strip(),
+                            "raw_reference": raw_reference,
+                        }
+                    )
+
+        # Remove duplicates based on citation_id if present, otherwise based on content
+        seen = set()
+        unique_refs = []
+        for ref in formatted_refs:
+            # Create a unique identifier for deduplication
+            if ref["citation_id"]:
+                identifier = ref["citation_id"]
+            else:
+                identifier = f"{ref['title']}_{ref['authors']}_{ref['year']}"
+
+            if identifier not in seen:
+                seen.add(identifier)
+                unique_refs.append(ref)
+
+        return unique_refs

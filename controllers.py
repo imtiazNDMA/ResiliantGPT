@@ -1,5 +1,6 @@
 import os
 import io
+import base64
 from uuid import uuid4
 from config import Config
 from services.llm_service import LLMService

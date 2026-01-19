@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Auto-resize textarea
+    userInput.addEventListener('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+        if (this.value === '') this.style.height = '';
+    });
+
 
 
     async function handleFileUpload(event) {
@@ -137,20 +144,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    // Format bot response
+    // Format bot response using marked.js
     function formatBotResponse(text) {
-        let formattedText = text
-            .replace(/^\*\*(.*?)\*\*$/gm, '<h5>$1</h5>')
-            .replace(/^\s*(\d+)\.\s\*\*(.+?)\*\*(:| -)\s*(.+)$/gm, '<h6>$1. $2$3</h6><p>$4</p>')
-            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-            .replace(/^\*\s(.+)$/gm, '<li>$1</li>')
-            .replace(/\n/g, '<br>');
-
-        if (formattedText.includes('<li>')) {
-            formattedText = '<ul>' + formattedText + '</ul>';
+        try {
+            // Configure marked options if needed
+            marked.use({
+                breaks: true, // Enable line breaks
+                gfm: true     // Enable GitHub Flavored Markdown
+            });
+            return marked.parse(text);
+        } catch (e) {
+            console.error("Markdown parsing error:", e);
+            return text; // Fallback to raw text
         }
-
-        return formattedText;
     }
 
     // Send message to server
@@ -163,6 +169,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (message && currentConversationId) {
             addMessage('user', message);
             userInput.value = '';
+            userInput.style.height = ''; // Reset height
+
+            // Loading state
+            const originalBtnContent = sendButton.innerHTML;
+            sendButton.disabled = true;
+            sendButton.innerHTML = '<span class="status-pulse" style="display:inline-block; width:10px; height:10px;"></span>';
+
             const generateImage = document.getElementById("image-gen-checkbox").checked;
             try {
                 const response = await fetch('/api/chat', {
@@ -200,6 +213,9 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (error) {
                 console.error('Error:', error);
                 addMessage('bot', "Sorry, I encountered an error. Please try again.");
+            } finally {
+                sendButton.disabled = false;
+                sendButton.innerHTML = originalBtnContent;
             }
         }
     }
