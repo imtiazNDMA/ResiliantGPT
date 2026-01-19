@@ -13,26 +13,33 @@ Beyond text, ResilienceGPT is **multi-modal**, capable of processing voice comma
 * **🎙️ Voice Interaction**: Integrated **Whisper AI** for accurate speech-to-text transcription.
 * **🎨 AI Image Generation**: Generates visual representations of disaster scenarios using **Stable Diffusion**.
 * **⚡ Optimized Architecture**:
+  * **Async Processing**: Background task management for heavy workloads (uploads) using `TaskQueue`.
+  * **Persistent Caching**: Cloud-native `diskcache` for resilient response and rate limit caching.
+  * **Real-time Retrieval**: Intelligent cache invalidation (`kb_version`) for instant knowledge base updates.
   * **Vector Search**: ChromaDB for efficient similarity search.
-  * **Parallel Processing**: Concurrent summarization for handling long documents.
-  * **SQLite History**: Persistent conversation tracking.
 
 ---
 
 ## 🏗️ System Architecture
 
-The application follows a modular architecture separating the frontend (Flask), controllers, and specialized backend services.
+The application follows a modular architecture separating the frontend (Flask), controllers, and specialized backend services, with a dedicated async layer for heavy lifting.
 
 ```mermaid
 graph TD
     User[User / Client] -->|HTTP Request| App[Flask App]
     App -->|Route Logic| Controller[Controllers]
     
-    subgraph Services
+    subgraph Core_Services
         Controller -->|Query/Insert| VS[VectorStore Service]
         Controller -->|Generate/Summarize| LLM[LLM Service]
         Controller -->|Transcribe| Speech[Speech Service]
         Controller -->|Persist Chat| DB[(SQLite Database)]
+    end
+
+    subgraph Async_Layer
+        App -->|Submit Job| TQ[Task Queue]
+        TQ -->|Background Worker| Controller
+        App -->|Cache/RateLimit| DC[(DiskCache)]
     end
     
     subgraph External_AI
@@ -46,29 +53,37 @@ graph TD
 
 ## 🔄 Workflows & Dataflows
 
-### 1. Document Ingestion Pipeline
+### 1. Async Document Ingestion Pipeline
 
-When a user uploads a document (PDF, TXT, DOCX), it goes through a rigorous processing pipeline to ensure accurate retrieval later.
+When a user uploads a document, it is processed asynchronously to prevent blocking the UI.
 
 ```mermaid
 sequenceDiagram
     participant User
-    participant Controller
+    participant App
+    participant TaskQueue
+    participant Worker
     participant VectorStore
-    participant Utils
-    participant ChromaDB
+    participant ResponseCache
 
-    User->>Controller: Upload File (PDF/DOCX)
-    Controller->>VectorStore: insert_docs(file)
-    VectorStore->>VectorStore: Read File Stream
-    VectorStore->>VectorStore: Extract Text & References
+    User->>App: Upload File (PDF/DOCX)
+    App->>TaskQueue: submit_task(process_upload)
+    TaskQueue-->>App: Returns task_id
+    App-->>User: 202 Accepted (Polling ID)
     
-    VectorStore->>Utils: Split Text into Chunks
-    VectorStore->>VectorStore: Generate Embeddings
-    VectorStore->>ChromaDB: Store (Embeddings + Metadata)
+    par Async Processing
+        TaskQueue->>Worker: Execute Task
+        Worker->>VectorStore: insert_docs(file)
+        VectorStore->>VectorStore: Chunk & Embed
+        VectorStore->>VectorStore: Store in ChromaDB
+        Worker->>ResponseCache: bump_kb_version() (Invalidate Cache)
+        Worker-->>TaskQueue: Mark Complete
+    end
     
-    VectorStore-->>Controller: Success
-    Controller-->>User: "Documents processed successfully"
+    loop Polling
+        User->>App: GET /tasks/{id}
+        App-->>User: Status (Processing/Completed)
+    end
 ```
 
 ### 2. Retrieval Retrieval-Augmented Generation (RAG) Flow
@@ -147,7 +162,7 @@ Access the application at `http://localhost:5002`.
 
 ```text
 ResilienceGPT/
-├── app.py                  # Main Flask Entry Point
+├── app.py                  # Main Flask Entry Point (Routes & Async Config)
 ├── controllers.py          # Business Logic & Orchestration
 ├── config.py               # Application Configuration
 ├── services/               # Core Services
@@ -156,8 +171,10 @@ ResilienceGPT/
 │   ├── vector_store.py     # RAG & ChromaDB Management
 │   └── speech_service.py   # Whisper AI Transcription
 ├── utils/
+│   ├── task_queue.py       # Background Task Manager (ThreadPool)
+│   ├── performance_monitor.py # Metrics & Monitoring
+│   ├── response_formatter.py # Markdown & Response Logic
 │   └── text_processing.py  # Reference Extraction & Chunking
-├── tests/                  # Smoke Tests
-├── static/                 # CSS/JS Assets
+├── static/                 # CSS/JS Assets (Neon Theme)
 └── templates/              # HTML Templates
 ```
