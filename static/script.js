@@ -184,18 +184,31 @@ document.addEventListener('DOMContentLoaded', function () {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message bot-message robotic-panel';
         messageDiv.id = 'typing-indicator';
-        messageDiv.style.padding = '15px'; // Smaller padding for indicator
+        messageDiv.style.borderLeft = '4px solid var(--neon-cyan)'; // Ensure visual consistency
 
         const senderDiv = document.createElement('div');
         senderDiv.className = 'message-sender';
-        senderDiv.textContent = '// RESILIENCEGPT_PROCESSING';
+        senderDiv.textContent = '// SYSTEM_PROCESSING';
 
-        const indicatorContent = document.createElement('div');
-        indicatorContent.className = 'typing-indicator';
-        indicatorContent.innerHTML = 'Thinking <span></span><span></span><span></span>';
+        // Advanced Indicator Structure
+        const indicatorContainer = document.createElement('div');
+        indicatorContainer.className = 'typing-indicator';
+
+        indicatorContainer.innerHTML = `
+            <div class="processing-text">
+                <span>ANALYZING QUERY</span>
+                <span>Wait...</span>
+            </div>
+            <div class="processing-bar"></div>
+            <div class="processing-steps">
+                <div class="step-dot"></div>
+                <div class="step-dot"></div>
+                <div class="step-dot"></div>
+            </div>
+        `;
 
         messageDiv.appendChild(senderDiv);
-        messageDiv.appendChild(indicatorContent);
+        messageDiv.appendChild(indicatorContainer);
         chatOutput.appendChild(messageDiv);
         chatOutput.scrollTop = chatOutput.scrollHeight;
     }
