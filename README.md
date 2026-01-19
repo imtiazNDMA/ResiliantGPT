@@ -1,8 +1,8 @@
-# ChatbotARK 🤖🌍
+# ResilienceGPT 🤖🌍
 
-**ChatbotARK** is an advanced, AI-powered conversational assistant specialized in **Disaster Management**. It leverages Retrieval-Augmented Generation (RAG) to provide accurate, academically cited responses based on a vast corpus of disaster-related documents (PDFs, DOCX, etc.).
+**ResilienceGPT** is an advanced, AI-powered conversational assistant specialized in **Disaster Management**. It leverages Retrieval-Augmented Generation (RAG) to provide accurate, academically cited responses based on a vast corpus of disaster-related documents (PDFs, DOCX, etc.).
 
-Beyond text, ChatbotARK is **multi-modal**, capable of processing voice commands and generating relevant imagery using Stable Diffusion to aid in visualization.
+Beyond text, ResilienceGPT is **multi-modal**, capable of processing voice commands and generating relevant imagery using Stable Diffusion to aid in visualization.
 
 ---
 
@@ -102,8 +102,8 @@ flowchart LR
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-repo/chatbotark.git
-cd chatbotark
+git clone https://github.com/your-repo/resiliencegpt.git
+cd resiliencegpt
 ```
 
 ### 2. Install uv (if not installed)
@@ -146,7 +146,7 @@ Access the application at `http://localhost:5002`.
 ## 📂 Project Structure
 
 ```text
-ChatbotARK/
+ResilienceGPT/
 ├── app.py                  # Main Flask Entry Point
 ├── controllers.py          # Business Logic & Orchestration
 ├── config.py               # Application Configuration

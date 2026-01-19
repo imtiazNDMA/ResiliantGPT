@@ -60,7 +60,7 @@ json_formatter = JSONFormatter()
 console_handler = logging.StreamHandler()
 console_handler.setFormatter(json_formatter)
 
-file_handler = logging.FileHandler("chatbotark.log", mode="a")
+file_handler = logging.FileHandler("resiliencegpt.log", mode="a")
 file_handler.setFormatter(json_formatter)
 
 logging.basicConfig(
@@ -930,7 +930,7 @@ signal.signal(signal.SIGTERM, signal_handler)
 if __name__ == "__main__":
     # Record app start time for uptime tracking
     app.start_time = time.time()
-    logger.info("Starting ChatbotARK application...")
+    logger.info("Starting ResilienceGPT application...")
 
     try:
         app.run(host="0.0.0.0", port=5002, debug=True, use_reloader=False)

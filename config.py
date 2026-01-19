@@ -8,7 +8,7 @@ load_dotenv()
 
 class Config:
     """
-    Configuration class for ChatbotARK application.
+    Configuration class for ResilienceGPT application.
 
     Loads settings from environment variables with sensible defaults.
     Supports environment-specific configurations (development/production).

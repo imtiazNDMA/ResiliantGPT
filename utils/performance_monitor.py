@@ -1,5 +1,5 @@
 """
-Performance monitoring and benchmarking utilities for ChatbotARK
+Performance monitoring and benchmarking utilities for ResilienceGPT
 """
 
 import time

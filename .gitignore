@@ -138,7 +138,7 @@ chroma_local_db/
 
 # Log files
 *.log
-chatbotark.log
+resiliencegpt.log
 
 # Upload directories
 uploads/

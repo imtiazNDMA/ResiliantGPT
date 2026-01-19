@@ -1,4 +1,4 @@
-# Agent Guidelines for ChatbotARK
+# Agent Guidelines for ResilienceGPT
 
 ## Build/Test Commands
 - **Install dependencies**: `uv sync`
@@ -18,4 +18,4 @@
 
 ## Continue Rules
 - Follow project guide in `.continue/rules/CONTINUE.md` for development workflow and architecture.</content>
-<parameter name="filePath">G:/Hizbullah/ChatbotARK/AGENTS.md
+<parameter name="filePath">G:/Hizbullah/ResilienceGPT/AGENTS.md

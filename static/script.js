@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const senderDiv = document.createElement('div');
         senderDiv.className = 'message-sender';
-        senderDiv.textContent = sender === 'user' ? '// COMMANDER_INPUT' : (sender === 'system' ? '// SYSTEM_LOG' : '// ARK_RESPONSE');
+        senderDiv.textContent = sender === 'user' ? '// COMMANDER_INPUT' : (sender === 'system' ? '// SYSTEM_LOG' : '// RESILIENCEGPT_RESPONSE');
 
         const textDiv = document.createElement('div');
         textDiv.className = 'message-text';
