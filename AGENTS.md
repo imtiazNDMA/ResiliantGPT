@@ -4,42 +4,18 @@
 - **Install dependencies**: `uv sync`
 - **Run application**: `uv run app.py`
 - **Run all tests**: `python -m pytest tests/`
-- **Run single test**: `python tests/test_file.py`
+- **Run single test**: `python -m pytest tests/test_file.py`
 - **Format code**: `black .`
 - **Type check**: `mypy .`
 
 ## Code Style Guidelines
+- **Imports**: Standard library first, then third-party, then local. Use absolute imports.
+- **Naming**: `snake_case` for functions/variables, `PascalCase` for classes, `UPPER_CASE` for constants, `_leading_underscore` for private methods.
+- **Types**: Use type hints extensively. Import from `typing`. Use `Optional` for nullable types.
+- **Error Handling**: Specific exceptions in try/except. Log with logging module. No bare except.
+- **Formatting**: PEP 8, 4 spaces indentation, 88 char lines (Black), double quotes for strings.
+- **Comments**: Descriptive names preferred. Comments for complex logic only. Keep concise.
 
-### Imports
-- Standard library imports first
-- Third-party imports second
-- Local imports last
-- Use absolute imports for local modules
-
-### Naming Conventions
-- Functions/variables: `snake_case`
-- Classes: `PascalCase`
-- Constants: `UPPER_CASE`
-- Private methods: `_leading_underscore`
-
-### Error Handling
-- Use try/except blocks with specific exceptions
-- Log errors using the logging module
-- Avoid bare except clauses
-
-### Types
-- Use type hints where possible
-- Import from `typing` module when needed
-- Use `Optional` for nullable types
-
-### Formatting
-- Follow PEP 8 style guide
-- Use 4 spaces for indentation
-- Line length: 88 characters (Black default)
-- Use double quotes for strings
-
-### Comments & Documentation
-- Use descriptive variable/function names
-- Add comments for complex logic
-- Keep comments concise and clear</content>
+## Continue Rules
+- Follow project guide in `.continue/rules/CONTINUE.md` for development workflow and architecture.</content>
 <parameter name="filePath">G:/Hizbullah/ChatbotARK/AGENTS.md

@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('mode', currentMode);
 
         try {
-            addMessage('system', `Uploading ${files.length} file(s)...`);
+            addMessage('system', `Learning from ${files.length} document(s)...`);
 
             const response = await fetch('/upload', {
                 method: 'POST',
@@ -51,14 +51,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(result.message || 'Upload failed');
+                throw new Error(result.message || 'Learning failed');
             }
 
             if (result.status === 'success') {
-                addMessage('system', result.message);
+                addMessage('system', "Knowledge base updated successfully! I have learned from your documents.");
                 console.log('Upload successful:', result);
             } else {
-                throw new Error(result.message || 'Upload completed with errors');
+                throw new Error(result.message || 'Learning completed with errors');
             }
         } catch (error) {
             console.error('Upload error:', error);

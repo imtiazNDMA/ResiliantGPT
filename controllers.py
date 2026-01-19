@@ -1,13 +1,12 @@
-from services.vector_store import VectorStore
-from uuid import uuid4
 import os
-from typing import Optional, Union, List, Any, Dict
+import io
+from uuid import uuid4
+from config import Config
+from services.llm_service import LLMService
+from services.vector_store import VectorStore
 from werkzeug.datastructures import FileStorage
 from services.speech_service import transcribe
-import io
-import base64
-from services.llm_service import LLMService
-from config import Config
+from typing import Optional, Union, List, Any, Dict
 
 
 def newfunc(
@@ -41,15 +40,12 @@ def newfunc(
     Raises:
         ValueError: If no VectorStore available for the specified mode
     """
-    # This naming is still poor but kept for interface compatibility with app.py
-    # until app.py is fully updated.
 
     text = ""
     start_time = os.times()
 
-    # Use injected VectorStore or get from global instances to avoid per-request loading
     if vector_store is None:
-        from app import vector_store_instances  # Import here to avoid circular imports
+        from app import vector_store_instances
 
         vector_store = vector_store_instances.get(
             mode, vector_store_instances.get("general")
@@ -61,7 +57,6 @@ def newfunc(
         if not files:
             return "No files provided"
         print("Files in insert: ", files)
-        # Passed files directly to optimized insert method
         vector_store.insert_docs(files)
         return "Documents processed successfully."
 
@@ -75,7 +70,6 @@ def newfunc(
         filename = f"audio_{uuid4()}.wav"
         filepath = os.path.join(Config.UPLOAD_FOLDER, filename)
 
-        # If user_text is bytes (audio data)
         with open(filepath, "wb") as f:
             f.write(user_text)
 
