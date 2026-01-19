@@ -178,6 +178,35 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 10);
     }
 
+    function showTypingIndicator() {
+        if (document.getElementById('typing-indicator')) return; // Already showing
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message bot-message robotic-panel';
+        messageDiv.id = 'typing-indicator';
+        messageDiv.style.padding = '15px'; // Smaller padding for indicator
+
+        const senderDiv = document.createElement('div');
+        senderDiv.className = 'message-sender';
+        senderDiv.textContent = '// RESILIENCEGPT_PROCESSING';
+
+        const indicatorContent = document.createElement('div');
+        indicatorContent.className = 'typing-indicator';
+        indicatorContent.innerHTML = 'Thinking <span></span><span></span><span></span>';
+
+        messageDiv.appendChild(senderDiv);
+        messageDiv.appendChild(indicatorContent);
+        chatOutput.appendChild(messageDiv);
+        chatOutput.scrollTop = chatOutput.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) {
+            indicator.remove();
+        }
+    }
+
 
 
     // Format bot response using marked.js
@@ -213,6 +242,10 @@ document.addEventListener('DOMContentLoaded', function () {
             sendButton.innerHTML = '<span class="status-pulse" style="display:inline-block; width:10px; height:10px;"></span>';
 
             const generateImage = document.getElementById("image-gen-checkbox").checked;
+
+            // Show typing indicator
+            showTypingIndicator();
+
             try {
                 const response = await fetch('/api/chat', {
                     method: 'POST',
@@ -228,6 +261,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 const data = await response.json();
+
+                // Remove typing indicator before showing result
+                removeTypingIndicator();
+
                 if (data.response) {
                     addMessage('bot', data.response);
                 }
@@ -248,10 +285,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 updateChatHistorySidebar();
             } catch (error) {
                 console.error('Error:', error);
+                removeTypingIndicator();
                 addMessage('bot', "Sorry, I encountered an error. Please try again.");
             } finally {
                 sendButton.disabled = false;
                 sendButton.innerHTML = originalBtnContent;
+                // Double safe cleanup
+                removeTypingIndicator();
             }
         }
     }

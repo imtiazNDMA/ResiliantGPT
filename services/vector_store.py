@@ -127,14 +127,14 @@ class VectorStore:
     def extract_references_from_text(self, full_text: str) -> str:
         """Return the substring starting at the first occurrence of a
         references heading (case‑insensitive)."""
-        keywords = ["References", "REFERENCES", "references"]
-        start = -1
-        for keyword in keywords:
-            start = full_text.find(keyword)
-            if start != -1:
-                break
-        if start != -1:
-            return full_text[start:]
+        import re
+        # Pattern to find headings like "References", "Bibliography", "Works Cited"
+        # It looks for the keyword on its own line or with minimal surrounding characters
+        pattern = r"(?i)(\n\s*(?:references|bibliography|works cited)[\s:-]*\n)"
+        match = re.search(pattern, full_text)
+        
+        if match:
+            return full_text[match.start():]
         return ""
 
     def read_pdf(self, file: FileStorage) -> Tuple[str, str]:
