@@ -61,18 +61,54 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error(result.message || 'Learning failed');
             }
 
-            if (result.status === 'success') {
-                addMessage('system', "Knowledge base updated successfully! I have learned from your documents.");
-                console.log('Upload successful:', result);
+            if (!response.ok) throw new Error(result.error || "Upload failed");
+
+            // Check if it's an async task or immediate result
+            if (result.task_id) {
+                addMessage('bot', `Create: Uploading ${result.filename.join(", ")}... Processing in background.`);
+                pollTaskStatus(result.task_id, result.filename);
             } else {
-                throw new Error(result.message || 'Learning completed with errors');
+                addMessage('bot', `Create: Processed ${result.filename.join(", ")}`);
+                // Clear file input
+                document.getElementById('file-upload').value = '';
+                // Assuming there's a file-name-display element, if not, this line might cause an error
+                // document.getElementById('file-name-display').textContent = '';
             }
+
         } catch (error) {
-            console.error('Upload error:', error);
-            addMessage('system', error.message);
+            console.error('Error:', error);
+            addMessage('bot', `Error: ${error.message}`);
         } finally {
             event.target.value = '';
         }
+    }
+
+    async function pollTaskStatus(taskId, filenames) {
+        const pollInterval = 2000; // 2 seconds
+
+        const checkStatus = async () => {
+            try {
+                const response = await fetch(`/api/tasks/${taskId}`);
+                const statusData = await response.json();
+
+                if (statusData.status === 'completed') {
+                    addMessage('bot', `Create: Successfully processed ${filenames.join(", ")}`);
+                    // Clear file input
+                    document.getElementById('file-upload').value = '';
+                    // document.getElementById('file-name-display').textContent = '';
+                } else if (statusData.status === 'failed') {
+                    addMessage('bot', `Error: Failed to process files. ${statusData.error}`);
+                } else {
+                    // Still processing
+                    setTimeout(checkStatus, pollInterval);
+                }
+            } catch (e) {
+                console.error("Polling error", e);
+                addMessage('bot', `Error: Could not check upload status.`);
+            }
+        };
+
+        setTimeout(checkStatus, pollInterval);
     }
 
     // Add message to UI

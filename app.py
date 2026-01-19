@@ -23,6 +23,8 @@ from utils.performance_monitor import (
     performance_monitor,
     monitor_request,
 )
+from utils.task_queue import task_queue
+import diskcache
 
 
 # Configure structured JSON logging
@@ -137,43 +139,42 @@ MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB per file
 
 # Rate limiting
 class RateLimiter:
-    """Simple in-memory rate limiter"""
+    """Persistent rate limiter using diskcache"""
 
     def __init__(self):
-        self.requests = defaultdict(list)
-        self._lock = threading.Lock()
+        self.cache = diskcache.Cache("rate_limit_cache")
 
     def is_allowed(
         self, key: str, limit: int = 100, window: int = 60, check_only: bool = False
     ) -> bool:
         """Check if request is allowed under rate limit"""
         now = time.time()
-        with self._lock:
-            # Clean old requests
-            self.requests[key] = [
-                req_time for req_time in self.requests[key] if now - req_time < window
-            ]
+        
+        # Get request history for this key
+        requests = self.cache.get(key, [])
+        
+        # Clean old requests
+        requests = [req_time for req_time in requests if now - req_time < window]
+        
+        allowed = len(requests) < limit
 
-            allowed = len(self.requests[key]) < limit
+        if allowed and not check_only:
+            requests.append(now)
+            # Update cache with new list, set expire slightly longer than window
+            self.cache.set(key, requests, expire=window + 10)
 
-            if allowed and not check_only:
-                self.requests[key].append(now)
-
-            return allowed
-
+        return allowed
 
 rate_limiter = RateLimiter()
 
 
 # Response caching
 class ResponseCache:
-    """Simple in-memory response cache with TTL"""
+    """Persistent response cache using diskcache"""
 
     def __init__(self, max_size: int = 1000, ttl: int = 300):  # 5 minutes TTL
-        self.cache = {}
-        self.max_size = max_size
+        self.cache = diskcache.Cache("response_cache")
         self.ttl = ttl
-        self._lock = threading.Lock()
 
     def _get_key(self, data: dict) -> str:
         """Generate cache key from request data"""
@@ -187,37 +188,17 @@ class ResponseCache:
 
     def get(self, key: str) -> Optional[Dict[str, Any]]:
         """Get cached response if valid"""
-        with self._lock:
-            if key in self.cache:
-                entry = self.cache[key]
-                if time.time() - entry["timestamp"] < self.ttl:
-                    logger.info(f"Cache hit for key: {key[:8]}...")
-                    return entry["response"]
-                else:
-                    # Expired, remove it
-                    del self.cache[key]
-        return None
+        return self.cache.get(key)
 
     def set(self, key: str, response: Dict[str, Any]):
         """Cache a response"""
-        with self._lock:
-            # Clean expired entries if cache is full
-            if len(self.cache) >= self.max_size:
-                current_time = time.time()
-                self.cache = {
-                    k: v
-                    for k, v in self.cache.items()
-                    if current_time - v["timestamp"] < self.ttl
-                }
-
-            self.cache[key] = {"response": response, "timestamp": time.time()}
-            logger.info(f"Cached response for key: {key[:8]}...")
+        self.cache.set(key, response, expire=self.ttl)
+        logger.info(f"Cached response for key: {key[:8]}...")
 
     def clear(self):
         """Clear all cached responses"""
-        with self._lock:
-            self.cache.clear()
-            logger.info("Response cache cleared")
+        self.cache.clear()
+        logger.info("Response cache cleared")
 
 
 response_cache = ResponseCache()
@@ -617,30 +598,82 @@ def upload_file() -> Union[Tuple[str, int], Dict[str, Any]]:
             return jsonify({"error": str(e)}), 400
 
     try:
-        # Get the appropriate VectorStore instance
-        vector_store = vector_store_instances.get(
-            mode, vector_store_instances["general"]
-        )
+        # Save files to disk first, as FileStorage is not pickleable for threads
+        saved_paths = []
+        for file in validated_files:
+            secure_name = secure_filename(file.filename)
+            save_path = os.path.join(Config.UPLOAD_FOLDER, secure_name)
+            file.save(save_path)
+            saved_paths.append(save_path)
 
-        process_chat_request(
-            "message",
-            "insert",
-            mode=mode,
-            chat_history=[],
-            files=validated_files,
-            vector_store=vector_store,
-        )
+        # Define background task
+        def process_upload_task(paths, processing_mode):
+            from werkzeug.datastructures import FileStorage
+            
+            # Re-open files in worker thread
+            opened_files = []
+            try:
+                for p in paths:
+                    f = open(p, 'rb')
+                    # Create a FileStorage wrapper to match existing interface
+                    fs = FileStorage(f, filename=os.path.basename(p))
+                    opened_files.append((f, fs))
+                
+                # Get the appropriate VectorStore instance
+                # Note: vector_store_instances is global, so it's accessible in thread
+                # but might need care. Better to get it fresh or pass it?
+                # Actually, passing complex objects to threads is risky if they aren't thread-safe.
+                # VectorStore seems mostly stateless except for the collection handle.
+                
+                v_store = vector_store_instances.get(
+                    processing_mode, vector_store_instances["general"]
+                )
+
+                process_chat_request(
+                    "message",
+                    "insert",
+                    mode=processing_mode,
+                    chat_history=[],
+                    files=[fs for _, fs in opened_files],
+                    vector_store=v_store,
+                )
+                
+                return {"message": f"Processed {len(paths)} files successfully"}
+                
+            finally:
+                # Cleanup
+                for f, _ in opened_files:
+                    f.close()
+                for p in paths:
+                    try:
+                        os.remove(p)
+                    except:
+                        pass
+
+        # Submit task
+        task_id = task_queue.submit_task(process_upload_task, saved_paths, mode)
+        
         return jsonify(
             {
-                "status": "success",
-                "message": f"File(s) {validated_names} processed successfully",
+                "status": "processing",
+                "task_id": task_id,
+                "message": "Files uploaded and processing started",
                 "filename": validated_names,
             }
         )
 
     except Exception as e:
-        print(f"Upload error: {e}")
+        logger.error(f"Upload error: {e}")
         return jsonify({"error": f"Processing failed: {str(e)}"}), 500
+
+
+@app.route("/api/tasks/<task_id>", methods=["GET"])
+def get_task_status(task_id):
+    """Poll for background task status"""
+    status = task_queue.get_task_status(task_id)
+    if not status:
+        return jsonify({"error": "Task not found"}), 404
+    return jsonify(status)
 
 
 @app.route("/api/conversations", methods=["GET"])

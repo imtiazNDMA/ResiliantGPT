@@ -28,4 +28,5 @@ dependencies = [
     "psutil>=5.9.0",
     "gputil>=1.4.0",
     "accelerate",
+    "diskcache>=5.6.3",
 ]
