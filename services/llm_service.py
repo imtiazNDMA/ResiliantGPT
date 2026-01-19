@@ -202,10 +202,11 @@ class LLMService:
 
             ### Guidelines:
             1.  **Be Natural**: Speak like a human expert. Avoid robotic headers like "Response:" or "Answer:".
-            2.  **Use Context**: Base your answer primarily on the 'Retrieved Context'.
-            3.  **Be Helpful**: If the context doesn't fully answer the question, politely state what is available.
-            4.  **Citations**: Naturally integrate citations if relevant, but do not force them.
-            5.  **Neat Formatting**: Use paragraphs, bullet points, and bold text to make the answer easy to read.
+            2.  **Handle Greetings**: If the user sends a greeting (e.g., "Hello"), respond warmly and offer assistance without mentioning "context" or "database".
+            3.  **Use Context**: For information requests, base your answer primarily on the 'Retrieved Context'.
+            4.  **Be Helpful**: If the context doesn't answer the question, state that you don't have that specific information but offer general expertise.
+            5.  **Citations**: Naturally integrate citations if relevant, but do not force them.
+            6.  **Neat Formatting**: Use paragraphs, bullet points, and bold text to make the answer easy to read.
 
             ### Tone:
             Professional, Helpful, and Natural.
