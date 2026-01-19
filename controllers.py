@@ -46,13 +46,22 @@ def process_chat_request(
     start_time = os.times()
 
     if vector_store is None:
-        from app import vector_store_instances
-
-        vector_store = vector_store_instances.get(
-            mode, vector_store_instances.get("general")
-        )
+        try:
+            from app import vector_store_instances
+            vector_store = vector_store_instances.get(
+                mode, vector_store_instances.get("general")
+            )
+        except ImportError:
+            # If called from a context where app cannot be imported yet or circular dependency
+            # We might need to initialize a fresh one or raise an error
+            # But since we pass vector_store in app.py's process_upload_task, this block shouldn't be hit for uploads
+            # This is a fallback for other calls
+            from services.vector_store import VectorStore
+            # This is expensive and should be avoided, but prevents crash
+            vector_store = VectorStore(mode=mode)
+            
         if vector_store is None:
-            raise ValueError(f"No VectorStore available for mode: {mode}")
+             raise ValueError(f"No VectorStore available for mode: {mode}")
 
     if action == "insert":
         if not files:

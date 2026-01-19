@@ -58,10 +58,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(result.message || 'Learning failed');
+                throw new Error(result.error || result.message || 'Learning failed');
             }
-
-            if (!response.ok) throw new Error(result.error || "Upload failed");
 
             // Check if it's an async task or immediate result
             if (result.task_id) {
