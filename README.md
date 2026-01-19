@@ -44,7 +44,7 @@ graph TD
     
     subgraph External_AI
         VS -->|Embeddings| Chroma[(ChromaDB)]
-        LLM -->|Chat/Completion| Ollama[Ollama (Llama 3.1)]
+        LLM -->|Chat/Completion| Ollama["Ollama (Llama 3.1)"]
         LLM -->|Image Gen| SD[Stable Diffusion]
     end
 ```
@@ -100,7 +100,7 @@ flowchart LR
     Context --> Prompt[Construction Prompt]
     ChatHist[Chat History] --> Prompt
     
-    Prompt --> LLM[Ollama (Llama 3.1)]
+    Prompt --> LLM["Ollama (Llama 3.1)"]
     LLM --> Response[Academic Response]
 ```
 
