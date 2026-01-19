@@ -10,7 +10,7 @@ from services.speech_service import transcribe
 from typing import Optional, Union, List, Any, Dict
 
 
-def newfunc(
+def process_chat_request(
     user_text: str,
     action: str,
     mode: str,

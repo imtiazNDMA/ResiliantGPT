@@ -21,7 +21,7 @@ class Config:
     TESTING: bool = os.getenv("TESTING", "false").lower() == "true"
 
     # Security
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "default-dev-key-do-not-use-in-prod")
+    SECRET_KEY: str = os.environ["SECRET_KEY"]  # Must be set in environment
 
     # LLM Settings
     OLLAMA_BASE_URL: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")

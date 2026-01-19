@@ -15,7 +15,7 @@ from typing import Dict, Any, List, Tuple, Optional, Union
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 from config import Config
-from controllers import newfunc
+from controllers import process_chat_request
 from services import database
 from services.vector_store import VectorStore
 from utils.performance_monitor import (
@@ -324,7 +324,9 @@ def conversations(
     # Get the appropriate VectorStore instance
     vector_store = vector_store_instances.get(mode, vector_store_instances["general"])
 
-    bot_response = newfunc(
+    vector_store = vector_store_instances.get(mode, vector_store_instances["general"])
+
+    bot_response = process_chat_request(
         user_message,
         "search",
         mode=mode,
@@ -335,7 +337,7 @@ def conversations(
 
     image_base64 = None
     if generate_image:
-        image_base64 = newfunc(
+        image_base64 = process_chat_request(
             user_text=user_message,
             action="image",
             mode=mode,
@@ -520,7 +522,7 @@ def chat_audio() -> Union[Tuple[str, int], Dict[str, Any]]:
             for entry in current_conv["history"][-3:]
         ]
 
-    user_message = newfunc(
+    user_message = process_chat_request(
         audio_data, "audio", mode=mode, chat_history=cleaned_history, path=audio_base64
     )
 
@@ -620,7 +622,7 @@ def upload_file() -> Union[Tuple[str, int], Dict[str, Any]]:
             mode, vector_store_instances["general"]
         )
 
-        newfunc(
+        process_chat_request(
             "message",
             "insert",
             mode=mode,
