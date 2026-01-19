@@ -175,6 +175,17 @@ class ResponseCache:
     def __init__(self, max_size: int = 1000, ttl: int = 300):  # 5 minutes TTL
         self.cache = diskcache.Cache("response_cache")
         self.ttl = ttl
+        self.kb_version_key = "system_kb_version"
+
+    def get_kb_version(self) -> float:
+        """Get current KB version timestamp"""
+        return self.cache.get(self.kb_version_key, 0.0)
+
+    def bump_kb_version(self):
+        """Update KB version to invalidate old cache entries"""
+        new_version = time.time()
+        self.cache.set(self.kb_version_key, new_version)
+        logger.info(f"KB Version bumped to {new_version}")
 
     def _get_key(self, data: dict) -> str:
         """Generate cache key from request data"""
@@ -183,6 +194,7 @@ class ResponseCache:
             "message": data.get("message", ""),
             "mode": data.get("mode", "general"),
             "generate_image": data.get("generate_image", False),
+            "kb_version": self.get_kb_version()
         }
         return hashlib.md5(json.dumps(key_data, sort_keys=True).encode()).hexdigest()
 
@@ -637,6 +649,9 @@ def upload_file() -> Union[Tuple[str, int], Dict[str, Any]]:
                     files=[fs for _, fs in opened_files],
                     vector_store=v_store,
                 )
+                
+                # Invalidate cache by updating KB version
+                response_cache.bump_kb_version()
                 
                 return {"message": f"Processed {len(paths)} files successfully"}
                 
