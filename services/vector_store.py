@@ -41,7 +41,38 @@ class VectorStore:
     _embedding_model = None
 
     # LRU cache for embeddings to avoid recomputing identical texts
-    _embedding_cache = {}
+    # Using OrderedDict with max size to prevent unbounded memory growth
+    class _LRUCache:
+        """Simple LRU cache implementation with size limit"""
+        def __init__(self, maxsize=1000):
+            self.cache = {}
+            self.maxsize = maxsize
+            self.access_order = []
+        
+        def get(self, key):
+            if key in self.cache:
+                # Move to end (most recently used)
+                self.access_order.remove(key)
+                self.access_order.append(key)
+                return self.cache[key]
+            return None
+        
+        def set(self, key, value):
+            if key in self.cache:
+                # Update and move to end
+                self.access_order.remove(key)
+            elif len(self.cache) >= self.maxsize:
+                # Evict least recently used
+                lru_key = self.access_order.pop(0)
+                del self.cache[lru_key]
+            
+            self.cache[key] = value
+            self.access_order.append(key)
+        
+        def __contains__(self, key):
+            return key in self.cache
+
+    _embedding_cache = _LRUCache(maxsize=1000)
 
     @staticmethod
     @lru_cache(maxsize=1000)
@@ -54,14 +85,15 @@ class VectorStore:
         text_hash = hashlib.md5(text.encode("utf-8")).hexdigest()
 
         # Check memory cache first
-        if text_hash in VectorStore._embedding_cache:
-            return tuple(VectorStore._embedding_cache[text_hash])
+        cached = VectorStore._embedding_cache.get(text_hash)
+        if cached is not None:
+            return tuple(cached)
 
         # Compute embedding
         embedding = VectorStore._embedding_model.encode(text).tolist()
 
         # Store in memory cache
-        VectorStore._embedding_cache[text_hash] = embedding
+        VectorStore._embedding_cache.set(text_hash, embedding)
 
         return tuple(embedding)
 
@@ -79,8 +111,9 @@ class VectorStore:
 
         for i, text in enumerate(texts):
             text_hash = hashlib.md5(text.encode("utf-8")).hexdigest()
-            if text_hash in VectorStore._embedding_cache:
-                cached_embeddings[i] = VectorStore._embedding_cache[text_hash]
+            cached = VectorStore._embedding_cache.get(text_hash)
+            if cached is not None:
+                cached_embeddings[i] = cached
             else:
                 uncached_texts.append(text)
                 uncached_indices.append(i)
@@ -96,7 +129,7 @@ class VectorStore:
                 zip(uncached_texts, batch_embeddings)
             ):
                 text_hash = hashlib.md5(text.encode("utf-8")).hexdigest()
-                VectorStore._embedding_cache[text_hash] = embedding
+                VectorStore._embedding_cache.set(text_hash, embedding)
                 cached_embeddings[uncached_indices[i]] = embedding
 
         return cached_embeddings

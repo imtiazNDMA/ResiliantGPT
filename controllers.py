@@ -33,73 +33,91 @@ class AgentController:
 
     def execute_loop(self, user_text: str, chat_history: List[Dict[str, Any]]) -> str:
         """
-        Phase 8: ReAct Reasoning Loop.
+        Phase 10: High-Fidelity Reasoning Loop.
+        Focuses on Persona, Professionalism, and multi-step intelligence.
         """
         system_prompt = f"""
-        You are ResilienceGPT, a reasoning AI assistant for the NDMA.
-        You solve complex tasks by following a Thought-Action-Observation loop.
+        # IDENTITY
+        You are ResilienceGPT, a Disaster Management Expert representing the National Disaster Management Authority (NDMA) of Pakistan. 
+        Trained and developed by the NEOC AI team.
 
-        Available Tools:
-        - search_documents: For finding facts, procedures, or context. Input: A specific search query.
-        - generate_image: For visual requests. Input: A descriptive prompt.
+        # TONE & STYLE
+        - **Professional & Natural**: You are an expert advisor, not a chatbot. Use a warm, authoritative, and helpful tone.
+        - **Cultural Nuance**: Use greetings like "Salam" or "Assalam-o-Alaikum" where appropriate for a Pakistani context.
+        - **Information Density**: Provide clear, technical, and actionable advice. Use tables, bolding, and markdown for clarity.
+        - **Citations**: If search results provide references, integrate them naturally (e.g., "[1]").
+        - **Formatting**: Use markdown for formatting, tables for data presentation, and bolding for emphasis.
+        - **Context**: Use the provided context to answer the user's question.
 
-        Format your response exactly as follows:
-        Thought: [Your reasoning about what to do next]
-        Action: [Tool name: either 'search_documents' or 'generate_image']
-        Action Input: [The input for the tool]
+        # REASONING PROTOCOL (ReAct)
+        You operate in a Thought-Action-Observation loop to solve complex queries.
+        
+        AVAILABLE TOOLS:
+        1. search_documents: Search the NDMA knowledge base. Input: A specific search query.
+        2. generate_image: For visual aids. Input: A descriptive visualization prompt.
 
-        Once you have enough information or if no tool is needed, respond with:
-        Final Answer: [Your comprehensive final response]
+        OUTPUT FORMAT:
+        Thought: [Your expert reasoning about the next step]
+        Action: [Tool name]
+        Action Input: [Precise input for the tool]
+        
+        FINAL OUTPUT FORMAT:
+        If you have enough information, or for direct conversation/greetings:
+        Final Answer: [Your complete, professional, and natural response for the user]
 
-        Rules:
-        1. Always start with a Thought.
-        2. If you use a tool, wait for the Observation before continuing.
-        3. Mention citations naturally in your Final Answer if they were provided in search results.
+        # RULES:
+        - Internal Thought/Action markers must NOT appear in the 'Final Answer'.
+        - If the user greets you, respond warmly and state your role.
         """
 
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": f"User: {user_text}\nHistory: {str(chat_history[-2:]) if chat_history else 'None'}"}
+            {"role": "user", "content": f"User Message: {user_text}\nConversation Context: {str(chat_history[-3:]) if chat_history else 'None'}"}
         ]
 
-        # Start the loop
         iteration = 0
         while iteration < self.max_iterations:
             iteration += 1
             
-            # Step 1: Get LLM Reasoning/Action
-            # We use llama_summarize as a proxy for raw LLM call, but we might need a more general one
-            # For now, let's craft a prompt that triggers the next step
-            full_prompt = "\n".join([f"{m['role']}: {m['content']}" for m in messages])
-            llm_output = self.llm_service.llama_summarize(full_prompt, max_words=200)
-            print(f"Agent Reasoning Iteration {iteration}:\n{llm_output}")
+            # Use the new generic chat method for high-fidelity reasoning
+            llm_output = self.llm_service.chat(messages, temperature=0.3)
+            print(f"Agent Iteration {iteration}:\n{llm_output}")
 
-            # Step 2: Parse Output
+            # 1. Handle Final Answer (The prioritized path)
             if "Final Answer:" in llm_output:
                 return llm_output.split("Final Answer:")[1].strip()
-
+            
+            # 2. Handle Tool Actions
             if "Action:" in llm_output and "Action Input:" in llm_output:
                 try:
-                    action = llm_output.split("Action:")[1].split("\n")[0].strip()
-                    action_input = llm_output.split("Action Input:")[1].split("\n")[0].strip()
+                    action_line = [line for line in llm_output.split("\n") if "Action:" in line][0]
+                    input_line = [line for line in llm_output.split("\n") if "Action Input:" in line][0]
+                    
+                    action = action_line.split("Action:")[1].strip()
+                    action_input = input_line.split("Action Input:")[1].strip()
                     
                     if action in self.tools:
                         observation = self.tools[action].run(action_input)
-                        print(f"Observation: {observation[:100]}...")
                         
-                        # Add to context
+                        # Add to reasoning chain
                         messages.append({"role": "assistant", "content": llm_output})
                         messages.append({"role": "user", "content": f"Observation: {observation}"})
                         continue
                     else:
-                        messages.append({"role": "user", "content": f"System: Tool '{action}' not found. Try one of {list(self.tools.keys())}."})
-                except IndexError:
-                    messages.append({"role": "user", "content": "System: Invalid format. Use Action: [Tool] and Action Input: [Input]."})
+                        messages.append({"role": "user", "content": f"System: Tool '{action}' is invalid. Use {list(self.tools.keys())}."})
+                except (IndexError, ValueError):
+                    messages.append({"role": "user", "content": "System: Command format error. Use Action: [Tool] and Action Input: [Input]."})
+            
+            # 3. Fallback: If model responds naturally without "Final Answer:" tag
+            elif len(llm_output) > 20 and "Thought:" not in llm_output:
+                return llm_output.strip()
+            
             else:
-                # If LLM didn't follow format but didn't give final answer, try to force it
-                return self.vector_store.call_llm("", user_text, chat_history, [])
+                # Force finalization if loop is breaking
+                messages.append({"role": "user", "content": "System: Please provide your Final Answer to the user now."})
 
-        return "I apologize, but I couldn't complete your request within the reasoning limit."
+        # Ultimate fallback to generic RAG if loop fails
+        return self.vector_store.call_llm("", user_text, chat_history, [])
 
     def route_and_execute(self, user_text: str, chat_history: List[Dict[str, Any]]) -> str:
         """Deprecating in favor of execute_loop in Phase 8."""

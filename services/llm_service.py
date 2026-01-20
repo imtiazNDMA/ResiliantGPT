@@ -1,6 +1,7 @@
 import os
 import torch
 import ollama
+import threading
 from diffusers import StableDiffusionPipeline
 from langchain_core.prompts import PromptTemplate
 from langchain_ollama import ChatOllama
@@ -35,6 +36,9 @@ _chat_ollama = None
 _sd_pipeline = None
 _thread_pool = None
 
+# Thread lock for singleton initialization
+_singleton_lock = threading.Lock()
+
 # Response cache for LLM calls
 _response_cache = {}
 
@@ -42,26 +46,32 @@ _response_cache = {}
 def _get_ollama_client():
     global _ollama_client
     if _ollama_client is None:
-        logger.info("Creating Ollama client")
-        _ollama_client = ollama.Client(host=Config.OLLAMA_BASE_URL)
+        with _singleton_lock:
+            if _ollama_client is None:  # Double-check
+                logger.info("Creating Ollama client")
+                _ollama_client = ollama.Client(host=Config.OLLAMA_BASE_URL)
     return _ollama_client
 
 
 def _get_chat_ollama():
     global _chat_ollama
     if _chat_ollama is None:
-        logger.info("Creating ChatOllama instance")
-        _chat_ollama = ChatOllama(
-            model=Config.OLLAMA_MODEL, temperature=0.3, base_url=Config.OLLAMA_BASE_URL
-        )
+        with _singleton_lock:
+            if _chat_ollama is None:  # Double-check
+                logger.info("Creating ChatOllama instance")
+                _chat_ollama = ChatOllama(
+                    model=Config.OLLAMA_MODEL, temperature=0.3, base_url=Config.OLLAMA_BASE_URL
+                )
     return _chat_ollama
 
 
 def _get_thread_pool():
     global _thread_pool
     if _thread_pool is None:
-        # Number of workers can be tuned via env var if needed.
-        _thread_pool = ThreadPoolExecutor(max_workers=5)
+        with _singleton_lock:
+            if _thread_pool is None:  # Double-check
+                # Number of workers can be tuned via env var if needed.
+                _thread_pool = ThreadPoolExecutor(max_workers=5)
     return _thread_pool
 
 
@@ -334,7 +344,32 @@ class LLMService:
                 torch.cuda.empty_cache()
                 logger.info("GPU memory cache cleared after Stable Diffusion")
 
-    def llama_summarize(self, text: str, max_words: int = 72) -> str:
+    def chat(self, messages: List[Dict[str, str]], temperature: float = 0.6) -> str:
+        """
+        Generic chat method for flexible communication with the LLM.
+        Useful for Agents and varied personas.
+        """
+        # Ensure we use a fresh configuration if switching models
+        llm = _get_chat_ollama()
+        
+        # We can't easily change temperature on the fly with the current ChatOllama singleton
+        # but the default 0.3 is generally good. For more control, we'd need to re-init.
+        
+        # Convert messages format to langchain if necessary, or use client directly
+        # Let's use the client directly for raw control in reasoning loops
+        try:
+            client = _get_ollama_client()
+            response = client.chat(
+                model=Config.OLLAMA_MODEL,
+                messages=messages,
+                options={"temperature": temperature}
+            )
+            return response['message']['content']
+        except Exception as e:
+            logger.error(f"Chat error: {e}")
+            return "ERROR: LLM communication failed."
+
+    def llama_summarize(self, text: str, max_words: int = 200) -> str:
         prompt = PromptTemplate.from_template(
             """
             You are an academic disaster management expert.

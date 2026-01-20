@@ -4,8 +4,6 @@ import time
 from contextlib import contextmanager
 from typing import Dict, Any, Optional, List
 from config import Config
-import asyncio
-from concurrent.futures import ThreadPoolExecutor
 
 
 @contextmanager
@@ -109,25 +107,3 @@ def load_all_conversations() -> Dict[str, Dict[str, Any]]:
 
 # Initialize table on import
 init_db()
-
-
-# Async versions for better performance in async applications
-async def save_conversation_async(conversation_id: str, data: Dict[str, Any]) -> None:
-    """Async version of save_conversation"""
-    loop = asyncio.get_event_loop()
-    with ThreadPoolExecutor() as executor:
-        await loop.run_in_executor(executor, save_conversation, conversation_id, data)
-
-
-async def get_conversation_async(conversation_id: str) -> Optional[Dict[str, Any]]:
-    """Async version of get_conversation"""
-    loop = asyncio.get_event_loop()
-    with ThreadPoolExecutor() as executor:
-        return await loop.run_in_executor(executor, get_conversation, conversation_id)
-
-
-async def load_all_conversations_async() -> Dict[str, Dict[str, Any]]:
-    """Async version of load_all_conversations"""
-    loop = asyncio.get_event_loop()
-    with ThreadPoolExecutor() as executor:
-        return await loop.run_in_executor(executor, load_all_conversations)

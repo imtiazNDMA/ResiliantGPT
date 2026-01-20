@@ -63,18 +63,5 @@ class Config:
     def get_upload_dir(self) -> str:
         """Get absolute path to upload directory."""
         return os.path.abspath(self.UPLOAD_FOLDER)
-
-    SECRET_KEY = os.getenv("SECRET_KEY", "default-dev-key-do-not-use-in-prod")
-
-    # LLM Settings
-    OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-    OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1")
-
-    # Database Settings
-    DATABASE_PATH = os.getenv("DATABASE_PATH", "conversations.db")
-
-    # Vector Store Settings
-    CHROMA_DB_PATH = os.getenv("CHROMA_DB_PATH", "./chroma_local_db")
-
     # Uploads
-    UPLOAD_FOLDER = "uploads"
+    UPLOAD_FOLDER: str = os.getenv("UPLOAD_FOLDER", "uploads")
