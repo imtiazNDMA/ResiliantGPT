@@ -1,4 +1,5 @@
 import chromadb
+import json
 from services.llm_service import LLMService
 from sentence_transformers import SentenceTransformer
 import logging
@@ -191,96 +192,101 @@ class VectorStore:
         df.to_csv(csv_buffer, index=False)
         return csv_buffer.getvalue(), []
 
-    def process_and_insert_file(self, file: FileStorage) -> None:
+    def process_and_insert_file(self, file: FileStorage) -> bool:
         """Read *file*, chunk it, embed the chunks and store them in Chroma.
-
-        The function works for PDF, TXT, DOCX and CSV/Excel files.
+        Returns True if successful, False otherwise.
         """
-        # Generator/Stream based processing
-        ext = file.filename.rsplit(".", 1)[1].lower()
-        output, references = "", ""
+        try:
+            # Generator/Stream based processing
+            ext = file.filename.rsplit(".", 1)[1].lower()
+            output, references = "", ""
 
-        if ext == "pdf":
-            output, references = self.read_pdf(file)
-        elif ext == "txt":
-            output, references = self.read_txt(file)
-        elif ext == "docx":
-            output, references = self.read_docx(file)
-        elif ext in ["csv", "xls", "xlsx"]:
-            output, references = self.convert_to_csv(file)
-        else:
-            self.logger.info("Skipping unsupported file: %s", file.filename)
-            return
+            if ext == "pdf":
+                output, references = self.read_pdf(file)
+            elif ext == "txt":
+                output, references = self.read_txt(file)
+            elif ext == "docx":
+                output, references = self.read_docx(file)
+            elif ext in ["csv", "xls", "xlsx"]:
+                output, references = self.convert_to_csv(file)
+            else:
+                self.logger.info("Skipping unsupported file: %s", file.filename)
+                return False
 
-        # Create chunks immediately and free raw text memory if possible
-        chunks = self.create_insert_chunks(output)
+            # Create chunks immediately and free raw text memory if possible
+            chunks = self.create_insert_chunks(output)
 
-        # Process references – helper expects lists of chunks and references.
-        processed_chunks_with_refs = text_processing.get_references(
-            [chunks], [references]
-        )
-
-        self.logger.info(
-            "Inserting %d chunks for %s",
-            len(processed_chunks_with_refs),
-            file.filename,
-        )
-
-        # Batch collect ids, texts, embeddings and metadata for a single add call.
-        ids = []
-        texts = []
-        embeddings = []
-        metadatas = []
-
-        # Extract texts for batch processing
-        chunk_texts = [doc["text"] for doc in processed_chunks_with_refs]
-
-        # Batch encode all texts at once for better performance
-        batch_embeddings = VectorStore._batch_encode(chunk_texts)
-
-        for doc, embedding in tqdm(
-            zip(processed_chunks_with_refs, batch_embeddings),
-            desc=f"Processing {file.filename}",
-            total=len(processed_chunks_with_refs),
-        ):
-            # Attach mode metadata so we can filter later if needed.
-            doc["metadata"]["mode"] = self.mode
-            # Keep references as a list/dict, not a string.
-            doc["metadata"]["cited_references"] = {
-                "references": doc["metadata"].get("cited_references", [])
-            }
-
-            ids.append(doc["id"])
-            texts.append(doc["text"])
-            embeddings.append(embedding)
-            metadatas.append(doc["metadata"])
-
-        if ids:
-            self.collection.add(
-                ids=ids,
-                documents=texts,
-                embeddings=embeddings,
-                metadatas=metadatas,
+            # Process references – helper expects lists of chunks and references.
+            processed_chunks_with_refs = text_processing.get_references(
+                [chunks], [references]
             )
 
-    def insert_docs(self, files: List[FileStorage]) -> None:
+            self.logger.info(
+                "Inserting %d chunks for %s",
+                len(processed_chunks_with_refs),
+                file.filename,
+            )
+
+            # Batch collect ids, texts, embeddings and metadata for a single add call.
+            ids = []
+            texts = []
+            embeddings = []
+            metadatas = []
+
+            # Extract texts for batch processing
+            chunk_texts = [doc["text"] for doc in processed_chunks_with_refs]
+
+            # Batch encode all texts at once for better performance
+            batch_embeddings = VectorStore._batch_encode(chunk_texts)
+
+            for doc, embedding in tqdm(
+                zip(processed_chunks_with_refs, batch_embeddings),
+                desc=f"Processing {file.filename}",
+                total=len(processed_chunks_with_refs),
+            ):
+                # Attach mode metadata so we can filter later if needed.
+                doc["metadata"]["mode"] = self.mode
+                # Serialize references to JSON string for ChromaDB compatibility
+                doc["metadata"]["cited_references"] = json.dumps(doc["metadata"].get("cited_references", []))
+
+                ids.append(doc["id"])
+                texts.append(doc["text"])
+                embeddings.append(embedding)
+                metadatas.append(doc["metadata"])
+
+            if ids:
+                self.collection.add(
+                    ids=ids,
+                    documents=texts,
+                    embeddings=embeddings,
+                    metadatas=metadatas,
+                )
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Failed to process {file.filename}: {e}", exc_info=True)
+            raise e
+
+    def insert_docs(self, files: List[FileStorage]) -> List[Dict[str, Any]]:
         """
         Process and insert multiple documents into the vector store.
-
-        Args:
-            files: List of uploaded file objects to process and store
-
-        Supported formats: PDF, TXT, DOCX, CSV, XLS, XLSX
-        Each file is chunked, embedded, and stored with metadata.
+        Returns a list of results for each file.
         """
-        # Now accepts files argument directly instead of self.files
+        results = []
         for file in files:
+            result = {"filename": file.filename, "status": "failed", "error": None}
             try:
-                self.process_and_insert_file(file)
+                if self.process_and_insert_file(file):
+                    result["status"] = "success"
+                else:
+                    result["error"] = "Unsupported format or empty"
             except Exception as e:
-                print(f"Error processing {file.filename}: {e}")
+                result["error"] = str(e)
+            
+            results.append(result)
 
-        print("Documents stored successfully.")
+        self.logger.info(f"Batch processing complete: {results}")
+        return results
 
     def create_insert_chunks(self, text: str) -> List[str]:
         splitter = RecursiveCharacterTextSplitter(
@@ -336,6 +342,18 @@ class VectorStore:
 
         for metadata in metadatas:
             cited_refs = metadata.get("cited_references", [])
+            
+            # Deserialize if it's a JSON string (fix for Phase 5 change)
+            if isinstance(cited_refs, str):
+                try:
+                    cited_refs = json.loads(cited_refs)
+                    if isinstance(cited_refs, dict) and "references" in cited_refs:
+                        # Handle the nested structure we created: {"references": [...]}
+                        cited_refs = cited_refs["references"]
+                except json.JSONDecodeError:
+                    self.logger.warning(f"Failed to decode cited_references JSON: {cited_refs}")
+                    cited_refs = []
+
             for ref in cited_refs:
                 # Validate that the reference has actual content
                 citation_id = ref.get("citation_id", "").strip()

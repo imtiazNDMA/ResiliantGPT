@@ -65,6 +65,32 @@ def _get_thread_pool():
     return _thread_pool
 
 
+def get_available_models() -> List[str]:
+    """Fetch available models from Ollama"""
+    try:
+        client = _get_ollama_client()
+        response = client.list()
+        # Newer ollama-python versions return an object with a 'models' attribute
+        if hasattr(response, 'models'):
+            return [m.model for m in response.models]
+        # Older versions or direct API dicts
+        elif isinstance(response, dict) and 'models' in response:
+            return [m['name'] for m in response['models']]
+        return []
+    except Exception as e:
+        logger.error(f"Error listing Ollama models: {e}")
+        return []
+
+
+def set_active_model(model_name: str):
+    """Dynamically switch the active LLM model"""
+    global _chat_ollama
+    logger.info(f"Switching active model to: {model_name}")
+    Config.OLLAMA_MODEL = model_name
+    # Force re-initialization of ChatOllama singleton on next call
+    _chat_ollama = None
+
+
 class LLMService:
     """
     Service for handling Large Language Model operations and AI image generation.
@@ -197,16 +223,16 @@ class LLMService:
             {{text_chunks}}
 
             ### Instructions:
-            You are ResilienceGPT, a helpful and professional AI assistant for the National Disaster Management Authority (NDMA).
+            You are ResilienceGPT, a helpful and professional AI assistant for the National Disaster Management Authority (NDMA). Trained and developed by the NEOC AI team.
             Your goal is to provide clear, accurate, and conversationally natural responses based on the provided context.
 
             ### Guidelines:
             1.  **Be Natural**: Speak like a human expert. Avoid robotic headers like "Response:" or "Answer:".
-            2.  **Handle Greetings**: If the user sends a greeting (e.g., "Hello"), respond warmly and offer assistance without mentioning "context" or "database".
+            2.  **Handle Greetings**: If the user sends a greeting (e.g., "Hello", "Hi", "Hey", "Salam", "Assalam-o-Alaikum", "Assalam-o-Alikum"), respond warmly and offer assistance without mentioning "context" or "database".
             3.  **Use Context**: For information requests, base your answer primarily on the 'Retrieved Context'.
             4.  **Be Helpful**: If the context doesn't answer the question, state that you don't have that specific information but offer general expertise.
             5.  **Citations**: Naturally integrate citations if relevant, but do not force them.
-            6.  **Neat Formatting**: Use paragraphs, bullet points, and bold text to make the answer easy to read.
+            6.  **Neat Formatting**: Use paragraphs, bullet points, tables, and bold text to make the answer easy to read.
 
             ### Tone:
             Professional, Helpful, and Natural.

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentMode = 'pakistan'; // Default to pakistan for backend compatibility
 
     initializeChat();
+    setupModelSelector();
 
     sendButton.addEventListener('click', sendMessage);
     newChatBtn.addEventListener('click', createNewChat);
@@ -641,6 +642,74 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error("Error getting audio stream:", error);
             throw error;  // or handle gracefully
+        }
+    }
+
+    async function setupModelSelector() {
+        const modelSelector = document.getElementById('model-selector');
+        if (!modelSelector) return;
+
+        try {
+            // 1. Fetch available models
+            const response = await fetch('/api/models');
+            const data = await response.json();
+
+            if (data.models && data.models.length > 0) {
+                // Clear loading option
+                modelSelector.innerHTML = '';
+
+                // Populate options
+                data.models.forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model;
+                    option.textContent = model.replace(':latest', '');
+                    if (model === data.current) {
+                        option.selected = true;
+                    }
+                    modelSelector.appendChild(option);
+                });
+            } else {
+                modelSelector.innerHTML = '<option value="">Ollama Offline</option>';
+            }
+
+            // 2. Handle model switching
+            modelSelector.addEventListener('change', async function () {
+                const selectedModel = this.value;
+                if (!selectedModel) return;
+
+                // Show visual feedback
+                const statusText = document.querySelector('.status-text');
+                const originalStatus = statusText.textContent;
+                statusText.textContent = "RECONFIGURING...";
+                modelSelector.disabled = true;
+
+                try {
+                    const switchResponse = await fetch('/api/set_model', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ model: selectedModel })
+                    });
+
+                    const result = await switchResponse.json();
+
+                    if (switchResponse.ok) {
+                        addMessage('system', `Brain Reconfigured: Now using ${selectedModel}`);
+                        statusText.textContent = "CORE ONLINE";
+                    } else {
+                        throw new Error(result.error || "Switch failed");
+                    }
+                } catch (e) {
+                    addMessage('system', `Error: Failed to switch model. ${e.message}`);
+                    statusText.textContent = "SYSTEM ERROR";
+                    setTimeout(() => statusText.textContent = originalStatus, 3000);
+                } finally {
+                    modelSelector.disabled = false;
+                }
+            });
+
+        } catch (error) {
+            console.error('Error setting up model selector:', error);
+            modelSelector.innerHTML = '<option value="">Error Loading</option>';
         }
     }
 

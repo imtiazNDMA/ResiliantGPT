@@ -49,8 +49,15 @@
                 <h1 class="app-title neon-text">ResilienceGPT</h1>
             </div>
             <div class="ai-status">
-                <span class="status-pulse"></span>
-                <span class="status-text">CORE ONLINE</span>
+                <div class="model-selector-container">
+                    <select id="model-selector" class="model-select-dropdown">
+                        <option value="">Loading Models...</option>
+                    </select>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-pulse"></span>
+                    <span class="status-text">CORE ONLINE</span>
+                </div>
             </div>
         </header>
 

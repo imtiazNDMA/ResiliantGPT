@@ -208,6 +208,45 @@ body {
     color: var(--accent-cyan);
 }
 
+/* Model Selector Styles */
+.model-selector-container {
+    padding: 4px 8px;
+    background: rgba(0, 242, 255, 0.05);
+    border: 1px solid var(--border-glass);
+    border-radius: 4px;
+    transition: var(--transition-fast);
+}
+
+.model-selector-container:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+}
+
+.model-select-dropdown {
+    background: transparent;
+    border: none;
+    color: var(--accent-cyan);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+    cursor: pointer;
+    max-width: 150px;
+}
+
+.model-select-dropdown option {
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    padding: 10px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 /* Main Arena: The Data Field */
 .chat-main-arena {
     grid-area: chat;
@@ -373,6 +412,7 @@ strong {
     color: var(--accent-cyan);
     font-weight: 600;
 }
+
 /* Advanced Processing Indicator */
 .typing-indicator {
     padding: 15px 20px;
@@ -433,18 +473,48 @@ strong {
     opacity: 0.3;
 }
 
-.step-dot:nth-child(1) { animation: step-blink 1s infinite 0.1s; }
-.step-dot:nth-child(2) { animation: step-blink 1s infinite 0.3s; }
-.step-dot:nth-child(3) { animation: step-blink 1s infinite 0.5s; }
+.step-dot:nth-child(1) {
+    animation: step-blink 1s infinite 0.1s;
+}
+
+.step-dot:nth-child(2) {
+    animation: step-blink 1s infinite 0.3s;
+}
+
+.step-dot:nth-child(3) {
+    animation: step-blink 1s infinite 0.5s;
+}
 
 @keyframes data-stream {
-    0% { left: -30%; width: 10%; opacity: 0.5; }
-    50% { width: 50%; opacity: 1; }
-    100% { left: 100%; width: 10%; opacity: 0.5; }
+    0% {
+        left: -30%;
+        width: 10%;
+        opacity: 0.5;
+    }
+
+    50% {
+        width: 50%;
+        opacity: 1;
+    }
+
+    100% {
+        left: 100%;
+        width: 10%;
+        opacity: 0.5;
+    }
 }
 
 @keyframes step-blink {
-    0%, 100% { opacity: 0.3; background: var(--text-secondary); }
-    50% { opacity: 1; background: var(--accent-cyan); box-shadow: 0 0 5px var(--accent-cyan); }
-}
 
+    0%,
+    100% {
+        opacity: 0.3;
+        background: var(--text-secondary);
+    }
+
+    50% {
+        opacity: 1;
+        background: var(--accent-cyan);
+        box-shadow: 0 0 5px var(--accent-cyan);
+    }
+}

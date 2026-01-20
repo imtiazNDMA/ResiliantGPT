@@ -132,6 +132,28 @@ def after_request(response):
 
 os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
 
+
+@app.route("/api/models", methods=["GET"])
+def get_models():
+    """Endpoint to list available Ollama models"""
+    from services.llm_service import get_available_models
+    models = get_available_models()
+    return jsonify({"models": models, "current": Config.OLLAMA_MODEL})
+
+
+@app.route("/api/set_model", methods=["POST"])
+def set_model():
+    """Endpoint to switch the current LLM model"""
+    data = request.get_json()
+    model_name = data.get("model")
+    if not model_name:
+        return jsonify({"error": "No model name provided"}), 400
+    
+    from services.llm_service import set_active_model
+    set_active_model(model_name)
+    return jsonify({"message": f"Successfully switched to {model_name}", "current": Config.OLLAMA_MODEL})
+
+
 # File upload validation constants
 ALLOWED_EXTENSIONS = {"pdf", "txt", "docx", "csv", "xls", "xlsx"}
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB per file
@@ -317,7 +339,7 @@ def conversations(
     # Get the appropriate VectorStore instance
     vector_store = vector_store_instances.get(mode, vector_store_instances["general"])
 
-    vector_store = vector_store_instances.get(mode, vector_store_instances["general"])
+
 
     bot_response = process_chat_request(
         user_message,
@@ -325,11 +347,22 @@ def conversations(
         mode=mode,
         chat_history=cleaned_history,
         vector_store=vector_store,
+        use_agent=True, # Phase 7: Enable Agentic Routing
     )
-    current_conv["history"][-1]["bot"] = bot_response
 
     image_base64 = None
-    if generate_image:
+    
+    # Handle spontaneous image generation from Agent Tools
+    if isinstance(bot_response, str) and bot_response.startswith("IMAGE_GENERATED:"):
+        image_parts = bot_response.split(":", 1)
+        image_base64 = image_parts[1]
+        bot_response = "I have generated the image based on your request."
+        current_conv["history"][-1]["image"] = image_base64
+
+    current_conv["history"][-1]["bot"] = bot_response
+
+    # Legacy fallback for explicit checkbox
+    if generate_image and not image_base64:
         image_base64 = process_chat_request(
             user_text=user_message,
             action="image",
@@ -641,7 +674,7 @@ def upload_file() -> Union[Tuple[str, int], Dict[str, Any]]:
                     processing_mode, vector_store_instances["general"]
                 )
 
-                process_chat_request(
+                result_msg = process_chat_request(
                     "message",
                     "insert",
                     mode=processing_mode,
@@ -653,7 +686,7 @@ def upload_file() -> Union[Tuple[str, int], Dict[str, Any]]:
                 # Invalidate cache by updating KB version
                 response_cache.bump_kb_version()
                 
-                return {"message": f"Processed {len(paths)} files successfully"}
+                return {"message": str(result_msg)}
                 
             finally:
                 # Cleanup
