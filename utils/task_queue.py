@@ -3,6 +3,7 @@ import uuid
 import time
 import logging
 from typing import Dict, Any, Callable, Optional
+from config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -10,7 +11,9 @@ class TaskQueue:
     """
     Manages background tasks using a ThreadPoolExecutor.
     """
-    def __init__(self, max_workers: int = 2):
+    def __init__(self, max_workers: int = None):
+        if max_workers is None:
+            max_workers = Config.TASK_QUEUE_MAX_WORKERS
         self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=max_workers)
         self.tasks: Dict[str, Dict[str, Any]] = {}
 
@@ -40,6 +43,10 @@ class TaskQueue:
                 self.tasks[task_id]["completed_at"] = time.time()
                 logger.error(f"Task {task_id} failed: {e}")
 
+        # Phase 11.2: Periodic cleanup to prevent memory leaks
+        if len(self.tasks) > 100:
+            self.cleanup_old_tasks()
+
         self.executor.submit(task_wrapper)
         return task_id
 
@@ -49,10 +56,12 @@ class TaskQueue:
         """
         return self.tasks.get(task_id)
 
-    def cleanup_old_tasks(self, max_age_seconds: int = 3600):
+    def cleanup_old_tasks(self, max_age_seconds: int = None):
         """
         Remove tasks older than max_age_seconds from memory.
         """
+        if max_age_seconds is None:
+            max_age_seconds = Config.TASK_CLEANUP_AGE_SECONDS
         now = time.time()
         to_remove = []
         for tid, info in self.tasks.items():

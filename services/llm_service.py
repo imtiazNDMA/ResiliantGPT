@@ -122,16 +122,20 @@ class LLMService:
         self.llm = _get_chat_ollama()
         self.sd_pipeline = None  # will be set by get_sd_pipeline()
 
-    def get_sd_pipeline(self) -> StableDiffusionPipeline:
+    def get_sd_pipeline(self) -> Optional[Any]:
+        """Lazy-load Stable Diffusion pipeline with GPU memory management."""
         global _sd_pipeline
-        if self.sd_pipeline is None:
-            logger.info("Loading Stable Diffusion Pipeline (Lazy Load)...")
+        if not STABLE_DIFFUSION_AVAILABLE:
+            return None
+
+        if _sd_pipeline is None:
+            logger.info("Loading Stable Diffusion Pipeline (Lazy Load)...") # Changed self.logger to logger
             model_id = "runwayml/stable-diffusion-v1-5"
             pipe = StableDiffusionPipeline.from_pretrained(
                 model_id, torch_dtype=torch.float16
             )
-            self.sd_pipeline = pipe.to("cuda")
-        return self.sd_pipeline
+            _sd_pipeline = pipe.to("cuda") # Assign to global _sd_pipeline
+        return _sd_pipeline # Return global _sd_pipeline
 
     @monitor_llm_calls
     def extract_result(
@@ -333,10 +337,15 @@ class LLMService:
             torch.cuda.empty_cache()
             logger.info("GPU memory cache cleared")
 
-    def call_stable_diffusion(self, summary: str) -> Any:
-        pipe = self.get_sd_pipeline()
+    def call_stable_diffusion(self, summary: str) -> Optional[Any]:
+        """Generate an image using Stable Diffusion based on the summary."""
+        pipeline = self.get_sd_pipeline()
+        if pipeline is None:
+            logger.warning("Stable Diffusion not available") # Changed self.logger to logger
+            return None
+
         try:
-            image = pipe(summary).images[0]
+            image = pipeline(summary).images[0]
             return image
         finally:
             # GPU memory cleanup
@@ -347,13 +356,13 @@ class LLMService:
     def chat(self, messages: List[Dict[str, str]], temperature: float = 0.6) -> str:
         """
         Generic chat method for flexible communication with the LLM.
-        Useful for Agents and varied personas.
+        
+        NOTE: With the current ChatOllama singleton pattern, the temperature set here 
+        only affects direct client.chat() calls. Transitioning to a factory pattern 
+        would be required for per-call temperature in LangChain.
         """
         # Ensure we use a fresh configuration if switching models
         llm = _get_chat_ollama()
-        
-        # We can't easily change temperature on the fly with the current ChatOllama singleton
-        # but the default 0.3 is generally good. For more control, we'd need to re-init.
         
         # Convert messages format to langchain if necessary, or use client directly
         # Let's use the client directly for raw control in reasoning loops
@@ -369,7 +378,9 @@ class LLMService:
             logger.error(f"Chat error: {e}")
             return "ERROR: LLM communication failed."
 
-    def llama_summarize(self, text: str, max_words: int = 200) -> str:
+    def llama_summarize(self, text: str, max_words: int = None) -> str:
+        if max_words is None:
+            max_words = Config.LLM_MAX_SUMMARY_WORDS
         prompt = PromptTemplate.from_template(
             """
             You are an academic disaster management expert.

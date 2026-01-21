@@ -31,92 +31,86 @@ class AgentController:
             "generate_image": ImageTool(llm_service=self.llm_service)
         }
 
+    def _parse_llm_output(self, llm_output: str) -> Optional[str]:
+        """Parse LLM output for Final Answer or natural response."""
+        if "Final Answer:" in llm_output:
+            return llm_output.split("Final Answer:")[1].strip()
+        
+        # Fallback: If model responds naturally without "Final Answer:" tag
+        if len(llm_output) > 20 and "Thought:" not in llm_output and "Action:" not in llm_output:
+            return llm_output.strip()
+        
+        return None
+
+    def _handle_action(self, llm_output: str, messages: List[Dict[str, str]]) -> bool:
+        """Parse and execute tool actions. Returns True if an action was processed."""
+        if "Action:" in llm_output and "Action Input:" in llm_output:
+            try:
+                action_line = [line for line in llm_output.split("\n") if "Action:" in line][0]
+                input_line = [line for line in llm_output.split("\n") if "Action Input:" in line][0]
+                
+                action = action_line.split("Action:")[1].strip()
+                action_input = input_line.split("Action Input:")[1].strip()
+                
+                if action in self.tools:
+                    observation = self.tools[action].run(action_input)
+                    messages.append({"role": "assistant", "content": llm_output})
+                    messages.append({"role": "user", "content": f"Observation: {observation}"})
+                    return True
+                else:
+                    messages.append({"role": "user", "content": f"System: Tool '{action}' is invalid. Use {list(self.tools.keys())}."})
+            except (IndexError, ValueError):
+                messages.append({"role": "user", "content": "System: Command format error. Use Action: [Tool] and Action Input: [Input]."})
+        return False
+
     def execute_loop(self, user_text: str, chat_history: List[Dict[str, Any]]) -> str:
-        """
-        Phase 10: High-Fidelity Reasoning Loop.
-        Focuses on Persona, Professionalism, and multi-step intelligence.
-        """
+        """Phase 10: High-Fidelity Reasoning Loop."""
         system_prompt = f"""
         # IDENTITY
         You are ResilienceGPT, a Disaster Management Expert representing the National Disaster Management Authority (NDMA) of Pakistan. 
         Trained and developed by the NEOC AI team.
 
         # TONE & STYLE
-        - **Professional & Natural**: You are an expert advisor, not a chatbot. Use a warm, authoritative, and helpful tone.
-        - **Cultural Nuance**: Use greetings like "Salam" or "Assalam-o-Alaikum" where appropriate for a Pakistani context.
-        - **Information Density**: Provide clear, technical, and actionable advice. Use tables, bolding, and markdown for clarity.
-        - **Citations**: If search results provide references, integrate them naturally (e.g., "[1]").
-        - **Formatting**: Use markdown for formatting, tables for data presentation, and bolding for emphasis.
-        - **Context**: Use the provided context to answer the user's question.
+        - **Professional & Natural**: Expert advisor tone.
+        - **Cultural Nuance**: Use appropriate greetings (e.g., "Salam").
+        - **Information Density**: technical/actionable advice with markdown formatting.
+        - **Citations**: Integrate references (e.g., "[1]") naturally.
+        - **Formatting**: Use tables and bolding for clarity.
 
         # REASONING PROTOCOL (ReAct)
-        You operate in a Thought-Action-Observation loop to solve complex queries.
+        Thought -> Action -> Observation
         
-        AVAILABLE TOOLS:
-        1. search_documents: Search the NDMA knowledge base. Input: A specific search query.
-        2. generate_image: For visual aids. Input: A descriptive visualization prompt.
+        Available Tools: {list(self.tools.keys())}
 
         OUTPUT FORMAT:
-        Thought: [Your expert reasoning about the next step]
-        Action: [Tool name]
-        Action Input: [Precise input for the tool]
+        Thought: [Reasoning]
+        Action: [Tool]
+        Action Input: [Input]
         
-        FINAL OUTPUT FORMAT:
-        If you have enough information, or for direct conversation/greetings:
-        Final Answer: [Your complete, professional, and natural response for the user]
-
-        # RULES:
-        - Internal Thought/Action markers must NOT appear in the 'Final Answer'.
-        - If the user greets you, respond warmly and state your role.
+        Final Answer: [Your polished response]
         """
 
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": f"User Message: {user_text}\nConversation Context: {str(chat_history[-3:]) if chat_history else 'None'}"}
+            {"role": "user", "content": f"User Message: {user_text}\nContext: {str(chat_history[-3:]) if chat_history else 'None'}"}
         ]
 
-        iteration = 0
-        while iteration < self.max_iterations:
-            iteration += 1
+        for iteration in range(self.max_iterations):
+            llm_output = self.llm_service.chat(messages, temperature=0.6)
             
-            # Use the new generic chat method for high-fidelity reasoning
-            llm_output = self.llm_service.chat(messages, temperature=0.3)
-            print(f"Agent Iteration {iteration}:\n{llm_output}")
+            # 1. Try to get final answer
+            final_answer = self._parse_llm_output(llm_output)
+            if final_answer:
+                return final_answer
+            
+            # 2. Try to handle tool action
+            if self._handle_action(llm_output, messages):
+                continue
+            
+            # 3. Force finalization if loop is stuck
+            messages.append({"role": "user", "content": "System: Please provide your Final Answer now."})
 
-            # 1. Handle Final Answer (The prioritized path)
-            if "Final Answer:" in llm_output:
-                return llm_output.split("Final Answer:")[1].strip()
-            
-            # 2. Handle Tool Actions
-            if "Action:" in llm_output and "Action Input:" in llm_output:
-                try:
-                    action_line = [line for line in llm_output.split("\n") if "Action:" in line][0]
-                    input_line = [line for line in llm_output.split("\n") if "Action Input:" in line][0]
-                    
-                    action = action_line.split("Action:")[1].strip()
-                    action_input = input_line.split("Action Input:")[1].strip()
-                    
-                    if action in self.tools:
-                        observation = self.tools[action].run(action_input)
-                        
-                        # Add to reasoning chain
-                        messages.append({"role": "assistant", "content": llm_output})
-                        messages.append({"role": "user", "content": f"Observation: {observation}"})
-                        continue
-                    else:
-                        messages.append({"role": "user", "content": f"System: Tool '{action}' is invalid. Use {list(self.tools.keys())}."})
-                except (IndexError, ValueError):
-                    messages.append({"role": "user", "content": "System: Command format error. Use Action: [Tool] and Action Input: [Input]."})
-            
-            # 3. Fallback: If model responds naturally without "Final Answer:" tag
-            elif len(llm_output) > 20 and "Thought:" not in llm_output:
-                return llm_output.strip()
-            
-            else:
-                # Force finalization if loop is breaking
-                messages.append({"role": "user", "content": "System: Please provide your Final Answer to the user now."})
-
-        # Ultimate fallback to generic RAG if loop fails
+        # Fallback to direct call
         return self.vector_store.call_llm("", user_text, chat_history, [])
 
     def route_and_execute(self, user_text: str, chat_history: List[Dict[str, Any]]) -> str:

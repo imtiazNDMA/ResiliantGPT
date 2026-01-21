@@ -1,5 +1,6 @@
 import chromadb
 import json
+import threading
 from services.llm_service import LLMService
 from sentence_transformers import SentenceTransformer
 import logging
@@ -40,13 +41,17 @@ class VectorStore:
     # Singleton for the embedding model – shared across all VectorStore instances.
     _embedding_model = None
 
+    # Singleton for ChromaDB client
+    _chroma_client = None
+    _chroma_lock = threading.Lock()
+
     # LRU cache for embeddings to avoid recomputing identical texts
     # Using OrderedDict with max size to prevent unbounded memory growth
     class _LRUCache:
         """Simple LRU cache implementation with size limit"""
-        def __init__(self, maxsize=1000):
+        def __init__(self, maxsize=None):
             self.cache = {}
-            self.maxsize = maxsize
+            self.maxsize = maxsize or Config.EMBEDDING_CACHE_SIZE
             self.access_order = []
         
         def get(self, key):
@@ -136,8 +141,15 @@ class VectorStore:
 
     def __init__(self, mode: str) -> None:
         self.logger = logging.getLogger(__name__)
-        # Split long line for readability
-        self.chroma_client = chromadb.PersistentClient(path=Config.CHROMA_DB_PATH)
+        
+        # Phase 11.2: Use thread-safe singleton for ChromaDB client
+        if VectorStore._chroma_client is None:
+            with VectorStore._chroma_lock:
+                if VectorStore._chroma_client is None:
+                    self.logger.info("Initializing persistent ChromaDB client")
+                    VectorStore._chroma_client = chromadb.PersistentClient(path=Config.CHROMA_DB_PATH)
+        
+        self.chroma_client = VectorStore._chroma_client
         self.mode = mode  # store mode for later use
 
         # Use a single collection and store the mode as metadata on each document.

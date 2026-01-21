@@ -4,10 +4,12 @@ Performance monitoring and benchmarking utilities for ResilienceGPT
 
 import time
 import logging
+import json
 import psutil
 from functools import wraps
 from typing import Dict, Any, Optional
 import threading
+from datetime import datetime
 from collections import defaultdict
 
 try:
@@ -145,7 +147,7 @@ class PerformanceMonitor:
                             "gpu_temperature": gpu.temperature,
                         }
                     )
-            except:
+            except Exception:
                 pass
 
         return stats

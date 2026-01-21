@@ -42,6 +42,11 @@ class Config:
     # Performance settings
     VECTOR_STORE_CACHE_SIZE: int = int(os.getenv("VECTOR_STORE_CACHE_SIZE", "1000"))
     LLM_CACHE_SIZE: int = int(os.getenv("LLM_CACHE_SIZE", "500"))
+    LLM_MAX_SUMMARY_WORDS: int = int(os.getenv("LLM_MAX_SUMMARY_WORDS", "200"))
+    TASK_QUEUE_MAX_WORKERS: int = int(os.getenv("TASK_QUEUE_MAX_WORKERS", "2"))
+    TASK_CLEANUP_AGE_SECONDS: int = int(os.getenv("TASK_CLEANUP_AGE_SECONDS", "3600"))
+    RESPONSE_CACHE_TTL: int = int(os.getenv("RESPONSE_CACHE_TTL", "300"))
+    EMBEDDING_CACHE_SIZE: int = int(os.getenv("EMBEDDING_CACHE_SIZE", "1000"))
 
     @classmethod
     def from_env(cls) -> "Config":

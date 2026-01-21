@@ -133,6 +133,11 @@ def after_request(response):
 os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
 
 
+def error_response(message: str, code: str = "ERROR", status: int = 400):
+    """Standardized error response format"""
+    return jsonify({"status": "error", "message": message, "code": code}), status
+
+
 @app.route("/api/models", methods=["GET"])
 def get_models():
     """Endpoint to list available Ollama models"""
@@ -147,11 +152,24 @@ def set_model():
     data = request.get_json()
     model_name = data.get("model")
     if not model_name:
-        return jsonify({"error": "No model name provided"}), 400
+        return error_response("No model name provided", "MISSING_MODEL")
     
-    from services.llm_service import set_active_model
+    from services.llm_service import get_available_models, set_active_model
+    
+    # Validation: Check if model exists
+    available_models = get_available_models()
+    if model_name not in available_models:
+        return error_response(
+            f"Model '{model_name}' not found. Available: {', '.join(available_models)}", 
+            "INVALID_MODEL"
+        )
+    
     set_active_model(model_name)
-    return jsonify({"message": f"Successfully switched to {model_name}", "current": Config.OLLAMA_MODEL})
+    return jsonify({
+        "status": "success",
+        "message": f"Successfully switched to {model_name}", 
+        "current": Config.OLLAMA_MODEL
+    })
 
 
 # File upload validation constants
@@ -258,9 +276,9 @@ def validate_file(file: FileStorage) -> bool:
     file_size = file.tell()
     file.seek(0)
 
-    if file_size > MAX_FILE_SIZE:
+    if file_size > Config.MAX_CONTENT_LENGTH:
         raise ValueError(
-            f"File too large. Maximum size: {MAX_FILE_SIZE / 1024 / 1024}MB"
+            f"File too large. Maximum size: {Config.MAX_CONTENT_LENGTH / 1024 / 1024:.1f}MB"
         )
 
     # Additional security: check for malicious filenames
@@ -695,7 +713,7 @@ def upload_file() -> Union[Tuple[str, int], Dict[str, Any]]:
                 for p in paths:
                     try:
                         os.remove(p)
-                    except:
+                    except Exception:
                         pass
 
         # Submit task
@@ -859,7 +877,7 @@ def cache_stats() -> Dict[str, Any]:
             from services.llm_service import _response_cache
 
             stats["llm_cache"] = {"size": len(_response_cache)}
-        except:
+        except Exception:
             stats["llm_cache"] = {"size": "unknown"}
 
         return jsonify(stats)
